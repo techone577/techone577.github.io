@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="浏览器下载文件solution:读取文件,设置响应头，写入返回的流前端必须用http请求而不能用ajax请求（待验证）   123456789101112131415161718192021222324252627282930313233343536@Controller@RequestMapping(&quot;/view&quot;)public class ViewController &amp;#123;    @R">
+<meta name="description" content="浏览器下载文件solution:读取文件,设置响应头，写入返回的流前端用http请求而不能用ajax请求(JQuery的ajax函数的返回类型只有xml、text、json、html等类型，没有“流”类型，所以我们要实现ajax下载，不能够使用相应的ajax函数进行文件下载。) （前端用a标签自动点击） 12345678910111213141516171819202122232425262728">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器下载文件">
 <meta property="og:url" content="http://yoursite.com/2018/07/10/浏览器下载文件/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="浏览器下载文件solution:读取文件,设置响应头，写入返回的流前端必须用http请求而不能用ajax请求（待验证）   123456789101112131415161718192021222324252627282930313233343536@Controller@RequestMapping(&quot;/view&quot;)public class ViewController &amp;#123;    @R">
+<meta property="og:description" content="浏览器下载文件solution:读取文件,设置响应头，写入返回的流前端用http请求而不能用ajax请求(JQuery的ajax函数的返回类型只有xml、text、json、html等类型，没有“流”类型，所以我们要实现ajax下载，不能够使用相应的ajax函数进行文件下载。) （前端用a标签自动点击） 12345678910111213141516171819202122232425262728">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T15:06:57.989Z">
+<meta property="og:updated_time" content="2018-07-12T13:51:24.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器下载文件">
-<meta name="twitter:description" content="浏览器下载文件solution:读取文件,设置响应头，写入返回的流前端必须用http请求而不能用ajax请求（待验证）   123456789101112131415161718192021222324252627282930313233343536@Controller@RequestMapping(&quot;/view&quot;)public class ViewController &amp;#123;    @R">
+<meta name="twitter:description" content="浏览器下载文件solution:读取文件,设置响应头，写入返回的流前端用http请求而不能用ajax请求(JQuery的ajax函数的返回类型只有xml、text、json、html等类型，没有“流”类型，所以我们要实现ajax下载，不能够使用相应的ajax函数进行文件下载。) （前端用a标签自动点击） 12345678910111213141516171819202122232425262728">
 
 
 
@@ -406,7 +406,7 @@
       
 
       
-        <h4 id="浏览器下载文件"><a href="#浏览器下载文件" class="headerlink" title="浏览器下载文件"></a>浏览器下载文件</h4><p>solution:读取文件,设置响应头，写入返回的流<br>前端必须用http请求而不能用ajax请求（待验证）  </p>
+        <h4 id="浏览器下载文件"><a href="#浏览器下载文件" class="headerlink" title="浏览器下载文件"></a>浏览器下载文件</h4><p>solution:读取文件,设置响应头，写入返回的流<br>前端用http请求而不能用ajax请求(JQuery的ajax函数的返回类型只有xml、text、json、html等类型，没有“流”类型，所以我们要实现ajax下载，不能够使用相应的ajax函数进行文件下载。) （前端用a标签自动点击）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/view"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/download"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getTemplate</span><span class="params">(HttpServletRequest request,HttpServletResponse response)</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//服务器下的相对路径</span></span><br><span class="line">        String path = <span class="string">"WEB-INF/document/template.csv"</span>;</span><br><span class="line">        <span class="comment">//通过相对路径获取真实路径</span></span><br><span class="line">        File csvFile = <span class="keyword">new</span> File(request.getServletContext().getRealPath(path));</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            ServletOutputStream out = response.getOutputStream();</span><br><span class="line">            FileInputStream csvInputStream = <span class="keyword">new</span> FileInputStream(csvFile);</span><br><span class="line">            BufferedOutputStream outputStream = <span class="keyword">new</span> BufferedOutputStream(out);</span><br><span class="line">            <span class="comment">//让服务器告诉浏览器它发送的数据属于什么文件类型</span></span><br><span class="line">            response.setContentType(<span class="string">"multipart/form-data"</span>);</span><br><span class="line">            <span class="comment">//inline 和 attachment：将文件内容直接显示在页面 attachment：弹出对话框让用户下载</span></span><br><span class="line">            response.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment;fileName="</span>+<span class="string">"test.csv"</span>);</span><br><span class="line">            response.addHeader(<span class="string">"Content-Length"</span>, String.valueOf(csvFile.length()));</span><br><span class="line">			  <span class="comment">//设置缓冲区大小</span></span><br><span class="line">            <span class="keyword">byte</span> []buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> ch = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((ch = csvInputStream.read(buffer)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                outputStream.write(buffer,<span class="number">0</span>,ch);</span><br><span class="line">            &#125;</span><br><span class="line">            outputStream.flush();</span><br><span class="line">            out.close();</span><br><span class="line">            outputStream.close();</span><br><span class="line">            csvInputStream.close();</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -462,8 +462,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/01/[LeetCode 394]Decode String 字符串解码/" rel="next" title="【LeetCode 394】 Decode String 字符串解码">
-                <i class="fa fa-chevron-left"></i> 【LeetCode 394】 Decode String 字符串解码
+              <a href="/2018/06/01/[LeetCode 377]Combinatiion Sum IV 组合总和 IV/" rel="next" title="【LeetCode 377】 Combination Sum IV 组合总和 IV">
+                <i class="fa fa-chevron-left"></i> 【LeetCode 377】 Combination Sum IV 组合总和 IV
               </a>
             
           </div>
@@ -471,6 +471,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/16/[LeetCode 3]Longest Substring Without Repeating Characters 无重复字符的最长子串/" rel="prev" title="【LeetCode 3】Longest Substring Without Repeating Characters 无重复字符的最长子串">
+                【LeetCode 3】Longest Substring Without Repeating Characters 无重复字符的最长子串 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -556,7 +560,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
