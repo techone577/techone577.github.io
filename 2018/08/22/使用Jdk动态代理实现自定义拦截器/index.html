@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="使用Jdk动态代理实现自定义拦截器接口：123public interface IUser &amp;#123;    public String getName();&amp;#125; 实现类：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
+<meta name="description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }  实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Jdk动态代理实现自定义拦截器">
 <meta property="og:url" content="http://yoursite.com/2018/08/22/使用Jdk动态代理实现自定义拦截器/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="使用Jdk动态代理实现自定义拦截器接口：123public interface IUser &amp;#123;    public String getName();&amp;#125; 实现类：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
+<meta property="og:description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }  实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/interceptorFlowChart.png">
 <meta property="og:image" content="http://yoursite.com/img/interceptor.png">
-<meta property="og:updated_time" content="2018-08-22T15:34:28.253Z">
+<meta property="og:updated_time" content="2018-08-22T15:54:22.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Jdk动态代理实现自定义拦截器">
-<meta name="twitter:description" content="使用Jdk动态代理实现自定义拦截器接口：123public interface IUser &amp;#123;    public String getName();&amp;#125; 实现类：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
-<meta name="twitter:image" content="http://yoursite.com/img/interceptor.png">
+<meta name="twitter:description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }  实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
+<meta name="twitter:image" content="http://yoursite.com/img/interceptorFlowChart.png">
 
 
 
@@ -408,35 +409,101 @@
       
 
       
-        <h1 id="使用Jdk动态代理实现自定义拦截器"><a href="#使用Jdk动态代理实现自定义拦截器" class="headerlink" title="使用Jdk动态代理实现自定义拦截器"></a>使用Jdk动态代理实现自定义拦截器</h1><h3 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface IUser &#123;</span><br><span class="line">    public String getName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="实现类："><a href="#实现类：" class="headerlink" title="实现类："></a>实现类：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">public class User implements IUser &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public User(String name)&#123;</span><br><span class="line">        this.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public String getName () &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">### 自定义拦截器接口：  </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">public interface Interceptor &#123;</span><br><span class="line">     boolean before(Object proxy, Object target, Method method,Object []args);</span><br><span class="line"></span><br><span class="line">     void around (Object proxy,Object target,Method method,Object []args);</span><br><span class="line"></span><br><span class="line">     void after(Object proxy, Object target, Method method, Object []args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">### 拦截器实现类： (在调用方法前做了个简单的属性校验)</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">public class MyInterceptor implements Interceptor &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public boolean before (Object proxy, Object target, Method method, Object[] args) &#123;</span><br><span class="line">        System.out.println(&quot;before&quot;);</span><br><span class="line">        if (checkProperties(target))</span><br><span class="line">            return true;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void around (Object proxy, Object target, Method method, Object[] args) &#123;</span><br><span class="line">        System.out.println(&quot;around&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void after (Object proxy, Object target, Method method, Object[] args) &#123;</span><br><span class="line">        System.out.println(&quot;After&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean checkProperties (Object object) &#123;</span><br><span class="line">        Field[] fields = object.getClass().getDeclaredFields();</span><br><span class="line">        try &#123;</span><br><span class="line">            for (Field field : fields) &#123;</span><br><span class="line">                field.setAccessible(true);</span><br><span class="line">                if (field.get(object).equals(&quot;&quot;))</span><br><span class="line">                    return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">### 实现InvocationHandler:</span><br></pre></td></tr></table></figure>
-<p>public class MyInvocationHandler implements InvocationHandler {<br>    private Object target;<br>    private Class clazz;</p>
-<pre><code>public MyInvocationHandler(Object t,Class c){
-    this.target = t;
-    this.clazz = c;
+        <h1 id="使用Jdk动态代理实现自定义拦截器"><a href="#使用Jdk动态代理实现自定义拦截器" class="headerlink" title="使用Jdk动态代理实现自定义拦截器"></a>使用Jdk动态代理实现自定义拦截器</h1><h3 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h3><pre><code>public interface IUser {
+    public String getName();
 }
 
-public static Object bind(Object target,Class clazz){
-    return Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(),new MyInvocationHandler(target,clazz));
-}
+</code></pre><h3 id="实现类："><a href="#实现类：" class="headerlink" title="实现类："></a>实现类：</h3><pre><code>public class User implements IUser {
+    private String name;
 
-@Override
-public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-    if(this.clazz==null)
-        return method.invoke(target,args);
-    Object result=null;
-    Interceptor interceptor = (Interceptor) clazz.newInstance();
-    if(interceptor.before(proxy,target,method,args)){
-        result = method.invoke(target,args);
-    }else{
-        interceptor.around(proxy,target,method,args);
+    public User(String name){
+        this.name=name;
     }
-    interceptor.after(proxy,target,method,args);
-    return result;
+    @Override
+    public String getName () {
+        return name;
+    }
 }
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 测试：</span><br></pre></td></tr></table></figure></p>
-<p>public class test {<br>    public static void main(String []args){<br>        IUser u = new User(“”);<br>        IUser proxy = (IUser)MyInvocationHandler.bind(u,MyInterceptor.class);<br>        proxy.getName();<br>    }<br>}<br><code>`</code></p>
-<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果:"></a>运行结果:</h3><p><img src="/img/interceptor.png" alt="结果"></p>
+</code></pre><h3 id="自定义拦截器接口："><a href="#自定义拦截器接口：" class="headerlink" title="自定义拦截器接口："></a>自定义拦截器接口：</h3><pre><code>public interface Interceptor {
+     boolean before(Object proxy, Object target, Method method,Object []args);
+
+     void around (Object proxy,Object target,Method method,Object []args);
+
+     void after(Object proxy, Object target, Method method, Object []args);
+}
+
+</code></pre><h3 id="拦截器实现类：-在调用方法前做了个简单的属性校验"><a href="#拦截器实现类：-在调用方法前做了个简单的属性校验" class="headerlink" title="拦截器实现类： (在调用方法前做了个简单的属性校验)"></a>拦截器实现类： (在调用方法前做了个简单的属性校验)</h3><p>这里可以实现多个拦截器实现责任链模式，<strong>target的代理是proxy1，proxy1的代理是proxy2，proxy2的代理是proxy3，这样就可以实现顺序拦截（好处是可以再责任链上任意位置添加拦截，缺点是代理和反射太多性能不高）</strong></p>
+<pre><code>public class MyInterceptor implements Interceptor {
+    @Override
+    public boolean before (Object proxy, Object target, Method method, Object[] args) {
+        System.out.println(&quot;before&quot;);
+        if (checkProperties(target))
+            return true;
+        return false;
+    }
+
+    @Override
+    public void around (Object proxy, Object target, Method method, Object[] args) {
+        System.out.println(&quot;around&quot;);
+    }
+
+    @Override
+    public void after (Object proxy, Object target, Method method, Object[] args) {
+        System.out.println(&quot;After&quot;);
+    }
+
+    private boolean checkProperties (Object object) {
+        Field[] fields = object.getClass().getDeclaredFields();
+        try {
+            for (Field field : fields) {
+                field.setAccessible(true);
+                if (field.get(object).equals(&quot;&quot;))
+                    return false;
+            }
+        } catch (Exception e) {
+
+        }
+        return true;
+    }
+}
+</code></pre><h3 id="实现InvocationHandler"><a href="#实现InvocationHandler" class="headerlink" title="实现InvocationHandler:"></a>实现InvocationHandler:</h3><p>流程如下：<br><img src="/img/interceptorFlowChart.png" alt="流程图"></p>
+<pre><code>
+public class MyInvocationHandler implements InvocationHandler {
+    private Object target;
+    private Class clazz;
+
+    public MyInvocationHandler(Object t,Class c){
+        this.target = t;
+        this.clazz = c;
+    }
+
+    public static Object bind(Object target,Class clazz){
+        return Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(),new MyInvocationHandler(target,clazz));
+    }
+
+    @Override
+    public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
+        if(this.clazz==null)
+            return method.invoke(target,args);
+        Object result=null;
+        Interceptor interceptor = (Interceptor) clazz.newInstance();
+        if(interceptor.before(proxy,target,method,args)){
+            result = method.invoke(target,args);
+        }else{
+            interceptor.around(proxy,target,method,args);
+        }
+        interceptor.after(proxy,target,method,args);
+        return result;
+    }
+}
+</code></pre><h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><pre><code>public class test {
+    public static void main(String []args){
+        IUser u = new User(&quot;&quot;);
+        IUser proxy = (IUser)MyInvocationHandler.bind(u,MyInterceptor.class);
+        proxy.getName();
+    }
+}
+</code></pre><h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果:"></a>运行结果:</h3><p><img src="/img/interceptor.png" alt="结果"></p>
 
       
     </div>
@@ -668,7 +735,7 @@ public Object invoke (Object proxy, Method method, Object[] args) throws Throwab
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Jdk动态代理实现自定义拦截器"><span class="nav-number">1.</span> <span class="nav-text">使用Jdk动态代理实现自定义拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口："><span class="nav-number">1.0.1.</span> <span class="nav-text">接口：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现类："><span class="nav-number">1.0.2.</span> <span class="nav-text">实现类：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行结果"><span class="nav-number">1.0.3.</span> <span class="nav-text">运行结果:</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Jdk动态代理实现自定义拦截器"><span class="nav-number">1.</span> <span class="nav-text">使用Jdk动态代理实现自定义拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口："><span class="nav-number">1.0.1.</span> <span class="nav-text">接口：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现类："><span class="nav-number">1.0.2.</span> <span class="nav-text">实现类：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义拦截器接口："><span class="nav-number">1.0.3.</span> <span class="nav-text">自定义拦截器接口：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器实现类：-在调用方法前做了个简单的属性校验"><span class="nav-number">1.0.4.</span> <span class="nav-text">拦截器实现类： (在调用方法前做了个简单的属性校验)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现InvocationHandler"><span class="nav-number">1.0.5.</span> <span class="nav-text">实现InvocationHandler:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试："><span class="nav-number">1.0.6.</span> <span class="nav-text">测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行结果"><span class="nav-number">1.0.7.</span> <span class="nav-text">运行结果:</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
