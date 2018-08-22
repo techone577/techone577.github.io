@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }  实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
+<meta name="description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }   实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Jdk动态代理实现自定义拦截器">
 <meta property="og:url" content="http://yoursite.com/2018/08/22/使用Jdk动态代理实现自定义拦截器/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }  实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
+<meta property="og:description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }   实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/img/interceptorFlowChart.png">
 <meta property="og:image" content="http://yoursite.com/img/interceptor.png">
-<meta property="og:updated_time" content="2018-08-22T15:54:22.543Z">
+<meta property="og:updated_time" content="2018-08-22T15:59:33.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Jdk动态代理实现自定义拦截器">
-<meta name="twitter:description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }  实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
+<meta name="twitter:description" content="使用Jdk动态代理实现自定义拦截器接口：public interface IUser {     public String getName(); }   实现类：public class User implements IUser {     private String name;      public User(String name){         this.name=name;">
 <meta name="twitter:image" content="http://yoursite.com/img/interceptorFlowChart.png">
 
 
@@ -409,101 +409,107 @@
       
 
       
-        <h1 id="使用Jdk动态代理实现自定义拦截器"><a href="#使用Jdk动态代理实现自定义拦截器" class="headerlink" title="使用Jdk动态代理实现自定义拦截器"></a>使用Jdk动态代理实现自定义拦截器</h1><h3 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h3><pre><code>public interface IUser {
-    public String getName();
+        <h1 id="使用Jdk动态代理实现自定义拦截器"><a href="#使用Jdk动态代理实现自定义拦截器" class="headerlink" title="使用Jdk动态代理实现自定义拦截器"></a>使用Jdk动态代理实现自定义拦截器</h1><h3 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h3><pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUser</span> </span>{
+    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>;
 }
 
-</code></pre><h3 id="实现类："><a href="#实现类：" class="headerlink" title="实现类："></a>实现类：</h3><pre><code>public class User implements IUser {
-    private String name;
+</code></pre>
+<h3 id="实现类："><a href="#实现类：" class="headerlink" title="实现类："></a>实现类：</h3><pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">IUser</span> </span>{
+    <span class="keyword">private</span> String name;
 
-    public User(String name){
-        this.name=name;
+    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name)</span></span>{
+        <span class="keyword">this</span>.name=name;
     }
-    @Override
-    public String getName () {
-        return name;
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span> <span class="params">()</span> </span>{
+        <span class="keyword">return</span> name;
     }
 }
-</code></pre><h3 id="自定义拦截器接口："><a href="#自定义拦截器接口：" class="headerlink" title="自定义拦截器接口："></a>自定义拦截器接口：</h3><pre><code>public interface Interceptor {
-     boolean before(Object proxy, Object target, Method method,Object []args);
+</code></pre>
+<h3 id="自定义拦截器接口："><a href="#自定义拦截器接口：" class="headerlink" title="自定义拦截器接口："></a>自定义拦截器接口：</h3><pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Interceptor</span> </span>{
+     <span class="function"><span class="keyword">boolean</span> <span class="title">before</span><span class="params">(Object proxy, Object target, Method method,Object []args)</span></span>;
 
-     void around (Object proxy,Object target,Method method,Object []args);
+     <span class="function"><span class="keyword">void</span> <span class="title">around</span> <span class="params">(Object proxy,Object target,Method method,Object []args)</span></span>;
 
-     void after(Object proxy, Object target, Method method, Object []args);
+     <span class="function"><span class="keyword">void</span> <span class="title">after</span><span class="params">(Object proxy, Object target, Method method, Object []args)</span></span>;
 }
 
-</code></pre><h3 id="拦截器实现类：-在调用方法前做了个简单的属性校验"><a href="#拦截器实现类：-在调用方法前做了个简单的属性校验" class="headerlink" title="拦截器实现类： (在调用方法前做了个简单的属性校验)"></a>拦截器实现类： (在调用方法前做了个简单的属性校验)</h3><p>这里可以实现多个拦截器实现责任链模式，<strong>target的代理是proxy1，proxy1的代理是proxy2，proxy2的代理是proxy3，这样就可以实现顺序拦截（好处是可以再责任链上任意位置添加拦截，缺点是代理和反射太多性能不高）</strong></p>
-<pre><code>public class MyInterceptor implements Interceptor {
-    @Override
-    public boolean before (Object proxy, Object target, Method method, Object[] args) {
-        System.out.println(&quot;before&quot;);
-        if (checkProperties(target))
-            return true;
-        return false;
+</code></pre>
+<h3 id="拦截器实现类：-在调用方法前做了个简单的属性校验"><a href="#拦截器实现类：-在调用方法前做了个简单的属性校验" class="headerlink" title="拦截器实现类： (在调用方法前做了个简单的属性校验)"></a>拦截器实现类： (在调用方法前做了个简单的属性校验)</h3><p>这里可以实现多个拦截器实现责任链模式，<strong>target的代理是proxy1，proxy1的代理是proxy2，proxy2的代理是proxy3，这样就可以实现顺序拦截（好处是可以再责任链上任意位置添加拦截，缺点是代理和反射太多性能不高）</strong></p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>{
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">before</span> <span class="params">(Object proxy, Object target, Method method, Object[] args)</span> </span>{
+        System.out.println(<span class="string">"before"</span>);
+        <span class="keyword">if</span> (checkProperties(target))
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        <span class="keyword">return</span> <span class="keyword">false</span>;
     }
 
-    @Override
-    public void around (Object proxy, Object target, Method method, Object[] args) {
-        System.out.println(&quot;around&quot;);
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span> <span class="params">(Object proxy, Object target, Method method, Object[] args)</span> </span>{
+        System.out.println(<span class="string">"around"</span>);
     }
 
-    @Override
-    public void after (Object proxy, Object target, Method method, Object[] args) {
-        System.out.println(&quot;After&quot;);
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span> <span class="params">(Object proxy, Object target, Method method, Object[] args)</span> </span>{
+        System.out.println(<span class="string">"After"</span>);
     }
 
-    private boolean checkProperties (Object object) {
+    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">checkProperties</span> <span class="params">(Object object)</span> </span>{
         Field[] fields = object.getClass().getDeclaredFields();
-        try {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                if (field.get(object).equals(&quot;&quot;))
-                    return false;
+        <span class="keyword">try</span> {
+            <span class="keyword">for</span> (Field field : fields) {
+                field.setAccessible(<span class="keyword">true</span>);
+                <span class="keyword">if</span> (field.get(object).equals(<span class="string">""</span>))
+                    <span class="keyword">return</span> <span class="keyword">false</span>;
             }
-        } catch (Exception e) {
+        } <span class="keyword">catch</span> (Exception e) {
 
         }
-        return true;
+        <span class="keyword">return</span> <span class="keyword">true</span>;
     }
 }
-</code></pre><h3 id="实现InvocationHandler"><a href="#实现InvocationHandler" class="headerlink" title="实现InvocationHandler:"></a>实现InvocationHandler:</h3><p>流程如下：<br><img src="/img/interceptorFlowChart.png" alt="流程图"></p>
-<pre><code>
-public class MyInvocationHandler implements InvocationHandler {
-    private Object target;
-    private Class clazz;
+</code></pre>
+<h3 id="实现InvocationHandler"><a href="#实现InvocationHandler" class="headerlink" title="实现InvocationHandler:"></a>实现InvocationHandler:</h3><p>流程如下：<br><img src="/img/interceptorFlowChart.png" alt="流程图"></p>
+<pre><code class="java">
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>{
+    <span class="keyword">private</span> Object target;
+    <span class="keyword">private</span> Class clazz;
 
-    public MyInvocationHandler(Object t,Class c){
-        this.target = t;
-        this.clazz = c;
+    <span class="function"><span class="keyword">public</span> <span class="title">MyInvocationHandler</span><span class="params">(Object t,Class c)</span></span>{
+        <span class="keyword">this</span>.target = t;
+        <span class="keyword">this</span>.clazz = c;
     }
 
-    public static Object bind(Object target,Class clazz){
-        return Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(),new MyInvocationHandler(target,clazz));
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">bind</span><span class="params">(Object target,Class clazz)</span></span>{
+        <span class="keyword">return</span> Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(),<span class="keyword">new</span> MyInvocationHandler(target,clazz));
     }
 
-    @Override
-    public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-        if(this.clazz==null)
-            return method.invoke(target,args);
-        Object result=null;
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span> <span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>{
+        <span class="keyword">if</span>(<span class="keyword">this</span>.clazz==<span class="keyword">null</span>)
+            <span class="keyword">return</span> method.invoke(target,args);
+        Object result=<span class="keyword">null</span>;
         Interceptor interceptor = (Interceptor) clazz.newInstance();
-        if(interceptor.before(proxy,target,method,args)){
+        <span class="keyword">if</span>(interceptor.before(proxy,target,method,args)){
             result = method.invoke(target,args);
-        }else{
+        }<span class="keyword">else</span>{
             interceptor.around(proxy,target,method,args);
         }
         interceptor.after(proxy,target,method,args);
-        return result;
+        <span class="keyword">return</span> result;
     }
 }
-</code></pre><h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><pre><code>public class test {
-    public static void main(String []args){
-        IUser u = new User(&quot;&quot;);
+</code></pre>
+<h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>{
+        IUser u = <span class="keyword">new</span> User(<span class="string">""</span>);
         IUser proxy = (IUser)MyInvocationHandler.bind(u,MyInterceptor.class);
         proxy.getName();
     }
 }
-</code></pre><h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果:"></a>运行结果:</h3><p><img src="/img/interceptor.png" alt="结果"></p>
+</code></pre>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果:"></a>运行结果:</h3><p><img src="/img/interceptor.png" alt="结果"></p>
 
       
     </div>
