@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2018%2F09%2F02%2F%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%E5%92%8C%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[title: 欧几里得算法和牛顿迭代法tags: [算法,Java]categories: Java date: 2018-09-02欧几里得算法和牛顿迭代法求最大公约数辗转相除法：f(x,y) = f(y,x%y),x和y的最大公约数和y和x%的最大公约数相同 12345678public static int Gcd (int a, int b) &#123; while (b &gt; 0) &#123; int temp = a % b; a = b; b = temp; &#125; return a; &#125; 求平方根牛顿迭代法： k=(k+x/k)/2 12345678910111213141516171819202122232425262728public static double Sqrt (int x) &#123; double res=0; double last=x; while(Math.abs(res-last)&gt;0.000000001)&#123; res = last; last = (res+(x/res))/2; &#125; return res; &#125;``` 之前也听说卡马克快速平方根倒数算法，好奇这几个平方根算法哪个更快cmark: ```java public static double cmark(int number) &#123; int i; float x2, y; float threehalfs = 1.5F; x2 = number * 0.5F; y = number; i = Float.floatToRawIntBits(y); // evil floating point bit level hacking i = 0x5f3759df - (i &gt;&gt; 1); // what the fuck? y = Float.intBitsToFloat(i); y = y * (threehalfs - (x2 * y * y)); // 1st iteration y = y * (threehalfs - (x2 * y * y)); // 2nd iteration, this can be removed return 1 / y; &#125; 结果是库函数最快，其次是牛顿迭代法（和库函数差不多），卡马克稍慢，啊哈哈哈]]></content>
+    <title><![CDATA[并查集]]></title>
+    <url>%2F2018%2F09%2F02%2F%E5%B9%B6%E6%9F%A5%E9%9B%86%2F</url>
+    <content type="text"><![CDATA[并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。solurion开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768public class unionFind &#123; public static int solution (List&lt;List&lt;Integer&gt;&gt; list) &#123; int[] size = new int[10]; int[] parent = new int[10]; for (int i = 0; i &lt; size.length; i++) &#123; size[i] = 0; parent[i] = i; &#125; for (int i = 0; i &lt; list.size(); i++) &#123; if (list.get(i).size() != 0) &#123; Set&lt;Integer&gt; set = new HashSet&lt;&gt;(); if (parent[i] != i) set.add(parent[i]); for (Integer t : list.get(i)) &#123; int root = find(t, parent); if (root != t) &#123; set.add(root); continue; &#125; if (parent[i] != t) &#123; parent[t] = i; size[i]++; size[t]--; &#125; &#125; for (Integer t : set) &#123; union(t, i, size, parent); &#125; &#125; &#125; for (int i = 0; i &lt; parent.length; i++) &#123; if (parent[i] != find(i, parent)) &#123; size[i] += size[parent[i]]; size[parent[i]] = -1; parent[i] = find(i, parent); &#125; &#125; int count = 0; for (int i = 0; i &lt; size.length; i++) if (size[i] &gt;= 0) count++; return count; &#125; //寻找自己的根节点 private static int find (int x, int[] parent) &#123; if (parent[x] == x) return x; else return find(parent[x], parent); &#125; //合并有相同父节点的两棵树 private static void union (int l, int r, int[] size, int[] parent) &#123; int xparent = find(l, parent); int yparent = find(r, parent); if (xparent == yparent) return; for (int i = 0; i &lt; parent.length; i++) &#123; if (find(i, parent) == yparent) &#123; parent[i] = xparent; size[xparent]++; size[yparent]--; &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[欧几里得算法和牛顿迭代法]]></title>
+    <url>%2F2018%2F08%2F28%2F%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95%E5%92%8C%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[欧几里得算法和牛顿迭代法求最大公约数辗转相除法：f(x,y) = f(y,x%y),x和y的最大公约数和y和x%的最大公约数相同12345678public static int Gcd (int a, int b) &#123; while (b &gt; 0) &#123; int temp = a % b; a = b; b = temp; &#125; return a; &#125; 求平方根牛顿迭代法： k=(k+x/k)/2 123456789public static double Sqrt (int x) &#123; double res=0; double last=x; while(Math.abs(res-last)&gt;0.000000001)&#123; res = last; last = (res+(x/res))/2; &#125; return res; &#125; 之前也听说卡马克快速平方根倒数算法，好奇这几个平方根算法哪个更快cmark: 12345678910111213public static double cmark(int number) &#123; int i; float x2, y; float threehalfs = 1.5F; x2 = number * 0.5F; y = number; i = Float.floatToRawIntBits(y); // evil floating point bit level hacking i = 0x5f3759df - (i &gt;&gt; 1); // what the fuck? y = Float.intBitsToFloat(i); y = y * (threehalfs - (x2 * y * y)); // 1st iteration y = y * (threehalfs - (x2 * y * y)); // 2nd iteration, this can be removed return 1 / y; &#125; 结果是库函数最快，其次是牛顿迭代法（和库函数差不多），卡马克稍慢，啊哈哈哈]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>算法</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[【LeetCode 74】Search a 2D Matrix 搜索二维矩阵]]></title>
@@ -116,19 +135,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 377】 Combination Sum IV 组合总和 IV]]></title>
-    <url>%2F2018%2F06%2F01%2F%5BLeetCode%20377%5DCombinatiion%20Sum%20IV%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%20IV%2F</url>
-    <content type="text"><![CDATA[[LeetCode 377]Combinatiion Sum IV 组合总和 IVProblem decription:Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target. Example:123456789101112131415nums = [1, 2, 3]target = 4The possible combination ways are:(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)Note that different sequences are counted as different combinations.Therefore the output is 7. Follow up:What if negative numbers are allowed in the given array?How does it change the problem?What limitation we need to add to the question to allow negative numbers? 题目描述：给定一个由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数。 示例:123456789101112131415nums = [1, 2, 3]target = 4所有可能的组合为：(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)请注意，顺序不同的序列被视作不同的组合。因此输出为 7。 进阶：如果给定的数组中含有负数会怎么样？问题会产生什么变化？我们需要在题目中添加什么限制来允许负数的出现？ Solution：使用动态规划和递归均可，创建一个dp数组，dp[i]表示和为i的正整数组合的个数，dp[0]=1,则从i=1到target遍历，对每一个i遍历数组中每个num，若i&gt;=num,则dp[i]+=dp[i-num],表示dp[3]=dp[2]+1 或 dp[1]+2 或 dp[0]+3,将所有情况累加就是dp[3]的结果,对原数组排序可对算法进行优化，当i&lt;num后面则不用判断直接break。(后面给出递归版本) Code(动态规划)：12345678910111213141516//beat 90%class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int []dp=new int[target+1]; dp[0]=1; Arrays.sort(nums); for(int i=1;i&lt;target+1;i++)&#123; for(int num:nums)&#123; if(i&lt;num) break; dp[i]+=dp[i-num]; &#125; &#125; return dp[target]; &#125;&#125; Code(递归)：1234567891011121314//超时 class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; return count; &#125;&#125; 123456789101112131415161718//AC beat 66.7%class Solution &#123; HashMap&lt;Integer,Integer&gt; map=new HashMap&lt;Integer,Integer&gt;(); public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; if(map.containsKey(target)) return map.get(target); for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; map.put(target,count); return count; &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Medium</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【LeetCode 394】 Decode String 字符串解码]]></title>
     <url>%2F2018%2F06%2F01%2F%5BLeetCode%20394%5DDecode%20String%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[[LeetCode 394]Decode String 字符串解码Problem decription:Given an encoded string, return it’s decoded string. The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer. You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc. Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won’t be input like 3a or 2[4]. Example:123s = &quot;3[a]2[bc]&quot;, return &quot;aaabcbc&quot;.s = &quot;3[a2[c]]&quot;, return &quot;accaccacc&quot;.s = &quot;2[abc]3[cd]ef&quot;, return &quot;abcabccdcdcdef&quot;. 题目描述：给定一个经过编码的字符串，返回它解码后的字符串。 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。 示例:s = &quot;3[a]2[bc]&quot;, 返回 &quot;aaabcbc&quot;. s = &quot;3[a2[c]]&quot;, 返回 &quot;accaccacc&quot;. s = &quot;2[abc]3[cd]ef&quot;, 返回 &quot;abcabccdcdcdef&quot;. Solution：首先想到的是递归，或者是用两个栈的非递归方法，非递归的效率更高一些。一个栈用来保存数字，一个用来保存字符串，以 b3[a]2[c]d] 为例,遍历整个字符串，用t保存当前字符串，count保存当前数字，碰到字母就添加到t中，碰到数字便循环读取并转换成正确的格式，当读取到‘[’时，将count入数字栈，将当前字符入字符栈，并将t清空，当读取到‘]’时，去数字栈顶元素k与字符栈顶元素s，t=s+k个t，直至栈为空结束，t即为所求。 Code：//beat 50% class Solution { public String decodeString(String s) { Stack&lt;Integer&gt; sNum=new Stack&lt;Integer&gt;(); Stack&lt;String&gt; sStr=new Stack&lt;String&gt;(); char[] chr=s.toCharArray(); String t=""; String count=""; for(int i=0;i&lt;chr.length;i++){ if(chr[i]&gt;='0' &amp;&amp; chr[i]&lt;='9'){ while(chr[i]!='['){ count+=chr[i++]; } sNum.push(Integer.parseInt(count)); count=""; } else if(chr[i]&lt;'0' || chr[i]&gt;'9' &amp;&amp;chr[i]!=']' &amp;&amp;chr[i]!='[') t+=chr[i]; if(chr[i]=='['){ sStr.push(t); t=""; } if(chr[i]==']'){ int k=1; if(!sNum.isEmpty()){ k=sNum.pop(); String top=sStr.pop(); for(int j=0;j&lt;k;j++) top+=t; t=top; } } } return t; } }]]></content>
@@ -142,16 +148,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 70】Climbing Stairs 爬楼梯]]></title>
-    <url>%2F2018%2F05%2F25%2F%5BLeetCode%2070%5DClimbing%20Stairs%20%E7%88%AC%E6%A5%BC%E6%A2%AF%2F</url>
-    <content type="text"><![CDATA[[LeetCode 70]Climbing Stairs 爬楼梯Problem description:You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: Given n will be a positive integer. Example:12345Input: 2Output: 2Explanation: There are two ways to climb to the top.1. 1 step + 1 step2. 2 steps 问题描述:假设你正在爬楼梯。需要 n 步你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 说明：给定 n 是一个正整数。 示例:12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1. 1 步 + 1 步2. 2 步 Solution:通过归纳可知符合斐波那契数列。 Code:12345678910111213141516171819class Solution &#123; public int climbStairs(int n) &#123; if(n==1) return 1; if(n==2) return 2; int f1=1; int f2=2; int sum=0; for(int i=2;i&lt;n;i++)&#123; sum=f1+f2; f1=f2; f2=sum; &#125; return sum; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 377】 Combination Sum IV 组合总和 IV]]></title>
+    <url>%2F2018%2F06%2F01%2F%5BLeetCode%20377%5DCombinatiion%20Sum%20IV%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%20IV%2F</url>
+    <content type="text"><![CDATA[[LeetCode 377]Combinatiion Sum IV 组合总和 IVProblem decription:Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target. Example:123456789101112131415nums = [1, 2, 3]target = 4The possible combination ways are:(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)Note that different sequences are counted as different combinations.Therefore the output is 7. Follow up:What if negative numbers are allowed in the given array?How does it change the problem?What limitation we need to add to the question to allow negative numbers? 题目描述：给定一个由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数。 示例:123456789101112131415nums = [1, 2, 3]target = 4所有可能的组合为：(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)请注意，顺序不同的序列被视作不同的组合。因此输出为 7。 进阶：如果给定的数组中含有负数会怎么样？问题会产生什么变化？我们需要在题目中添加什么限制来允许负数的出现？ Solution：使用动态规划和递归均可，创建一个dp数组，dp[i]表示和为i的正整数组合的个数，dp[0]=1,则从i=1到target遍历，对每一个i遍历数组中每个num，若i&gt;=num,则dp[i]+=dp[i-num],表示dp[3]=dp[2]+1 或 dp[1]+2 或 dp[0]+3,将所有情况累加就是dp[3]的结果,对原数组排序可对算法进行优化，当i&lt;num后面则不用判断直接break。(后面给出递归版本) Code(动态规划)：12345678910111213141516//beat 90%class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int []dp=new int[target+1]; dp[0]=1; Arrays.sort(nums); for(int i=1;i&lt;target+1;i++)&#123; for(int num:nums)&#123; if(i&lt;num) break; dp[i]+=dp[i-num]; &#125; &#125; return dp[target]; &#125;&#125; Code(递归)：1234567891011121314//超时 class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; return count; &#125;&#125; 123456789101112131415161718//AC beat 66.7%class Solution &#123; HashMap&lt;Integer,Integer&gt; map=new HashMap&lt;Integer,Integer&gt;(); public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; if(map.containsKey(target)) return map.get(target); for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; map.put(target,count); return count; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
       <tags>
         <tag>算法</tag>
         <tag>LeetCode</tag>
-        <tag>Easy</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -178,6 +184,19 @@
         <tag>算法</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【LeetCode 70】Climbing Stairs 爬楼梯]]></title>
+    <url>%2F2018%2F05%2F25%2F%5BLeetCode%2070%5DClimbing%20Stairs%20%E7%88%AC%E6%A5%BC%E6%A2%AF%2F</url>
+    <content type="text"><![CDATA[[LeetCode 70]Climbing Stairs 爬楼梯Problem description:You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: Given n will be a positive integer. Example:12345Input: 2Output: 2Explanation: There are two ways to climb to the top.1. 1 step + 1 step2. 2 steps 问题描述:假设你正在爬楼梯。需要 n 步你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 说明：给定 n 是一个正整数。 示例:12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1. 1 步 + 1 步2. 2 步 Solution:通过归纳可知符合斐波那契数列。 Code:12345678910111213141516171819class Solution &#123; public int climbStairs(int n) &#123; if(n==1) return 1; if(n==2) return 2; int f1=1; int f2=2; int sum=0; for(int i=2;i&lt;n;i++)&#123; sum=f1+f2; f1=f2; f2=sum; &#125; return sum; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
