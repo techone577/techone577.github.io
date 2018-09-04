@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。solurion开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 123456789101112131415161718192021222324252627282930">
+<meta name="description" content="并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。 solution开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 12345678910111213141516171819202122232425262728293">
 <meta name="keywords" content="Java,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并查集">
 <meta property="og:url" content="http://yoursite.com/2018/09/02/并查集/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。solurion开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 123456789101112131415161718192021222324252627282930">
+<meta property="og:description" content="并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。 solution开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 12345678910111213141516171819202122232425262728293">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-02T13:31:45.815Z">
+<meta property="og:updated_time" content="2018-09-04T15:27:55.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并查集">
-<meta name="twitter:description" content="并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。solurion开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 123456789101112131415161718192021222324252627282930">
+<meta name="twitter:description" content="并查集 union-find并查集其实就是构建一个森林，对有公共父节点的多叉树合并。问题：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。 solution开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。 12345678910111213141516171819202122232425262728293">
 
 
 
@@ -406,7 +406,8 @@
       
 
       
-        <h1 id="并查集-union-find"><a href="#并查集-union-find" class="headerlink" title="并查集 union-find"></a>并查集 union-find</h1><p>并查集其实就是构建一个森林，对有公共父节点的多叉树合并。<br><strong>问题</strong>：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。<br><strong>solurion</strong><br>开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。</p>
+        <h1 id="并查集-union-find"><a href="#并查集-union-find" class="headerlink" title="并查集 union-find"></a>并查集 union-find</h1><p>并查集其实就是构建一个森林，对有公共父节点的多叉树合并。<br><strong>问题</strong>：假如有1-10个人，互相认识的人构成一个朋友圈，两个朋友圈中没有相互认识的两个人，问能够构成几个盆友圈。</p>
+<h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><p>开一个size数组，下标代表每个人所认识的人数，parent数组下标代表自己的父节点。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">unionFind</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">solution</span> <span class="params">(List&lt;List&lt;Integer&gt;&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] size = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">        <span class="keyword">int</span>[] parent = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size.length; i++) &#123;</span><br><span class="line">            size[i] = <span class="number">0</span>;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (list.get(i).size() != <span class="number">0</span>) &#123;</span><br><span class="line">                Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">                <span class="keyword">if</span> (parent[i] != i)</span><br><span class="line">                    set.add(parent[i]);</span><br><span class="line">                <span class="keyword">for</span> (Integer t : list.get(i)) &#123;</span><br><span class="line">                    <span class="keyword">int</span> root = find(t, parent);</span><br><span class="line">                    <span class="keyword">if</span> (root != t) &#123;</span><br><span class="line">                        set.add(root);</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (parent[i] != t) &#123;</span><br><span class="line">                        parent[t] = i;</span><br><span class="line">                        size[i]++;</span><br><span class="line">                        size[t]--;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (Integer t : set) &#123;</span><br><span class="line">                    union(t, i, size, parent);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parent.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (parent[i] != find(i, parent)) &#123;</span><br><span class="line">                size[i] += size[parent[i]];</span><br><span class="line">                size[parent[i]] = -<span class="number">1</span>;</span><br><span class="line">                parent[i] = find(i, parent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size.length; i++)</span><br><span class="line">            <span class="keyword">if</span> (size[i] &gt;= <span class="number">0</span>)</span><br><span class="line">                count++;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//寻找自己的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">find</span> <span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span>[] parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] == x)</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> find(parent[x], parent);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//合并有相同父节点的两棵树</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">union</span> <span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span>[] size, <span class="keyword">int</span>[] parent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> xparent = find(l, parent);</span><br><span class="line">        <span class="keyword">int</span> yparent = find(r, parent);</span><br><span class="line">        <span class="keyword">if</span> (xparent == yparent)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parent.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (find(i, parent) == yparent) &#123;</span><br><span class="line">                parent[i] = xparent;</span><br><span class="line">                size[xparent]++;</span><br><span class="line">                size[yparent]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -464,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/28/欧几里得算法和牛顿迭代法/" rel="next" title="欧几里得算法和牛顿迭代法">
-                <i class="fa fa-chevron-left"></i> 欧几里得算法和牛顿迭代法
+              <a href="/2018/08/28/【LeetCode 74】Search a 2D Matrix 搜索二维矩阵 /" rel="next" title="【LeetCode 74】Search a 2D Matrix 搜索二维矩阵">
+                <i class="fa fa-chevron-left"></i> 【LeetCode 74】Search a 2D Matrix 搜索二维矩阵
               </a>
             
           </div>
@@ -473,6 +474,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/04/LCS(子串)、LCS(子序列)、LIS算法/" rel="prev" title="LCS(substring) | LCS(subsequence) | LIS">
+                LCS(substring) | LCS(subsequence) | LIS <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -558,7 +563,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -569,7 +574,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -641,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#并查集-union-find"><span class="nav-number">1.</span> <span class="nav-text">并查集 union-find</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#并查集-union-find"><span class="nav-number">1.</span> <span class="nav-text">并查集 union-find</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#solution"><span class="nav-number">1.0.1.</span> <span class="nav-text">solution</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
