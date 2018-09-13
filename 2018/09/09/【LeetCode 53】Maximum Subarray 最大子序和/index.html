@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="123456789101112131415/** * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 */public class leetcode53 &amp;#123;    public int maxSubArray(int[] nums) &amp;#123;        int dp[] = new int[nums.length];">
+<meta name="description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415/** * 给定一个整数数组 nums ，找">
 <meta name="keywords" content="算法,LeetCode,Easy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LeetCode 53】Maximum Subarray 最大子序和">
 <meta property="og:url" content="http://yoursite.com/2018/09/09/【LeetCode 53】Maximum Subarray 最大子序和/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="123456789101112131415/** * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 */public class leetcode53 &amp;#123;    public int maxSubArray(int[] nums) &amp;#123;        int dp[] = new int[nums.length];">
+<meta property="og:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415/** * 给定一个整数数组 nums ，找">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-09T16:29:40.884Z">
+<meta property="og:updated_time" content="2018-09-13T14:45:14.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【LeetCode 53】Maximum Subarray 最大子序和">
-<meta name="twitter:description" content="123456789101112131415/** * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 */public class leetcode53 &amp;#123;    public int maxSubArray(int[] nums) &amp;#123;        int dp[] = new int[nums.length];">
+<meta name="twitter:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415/** * 给定一个整数数组 nums ，找">
 
 
 
@@ -406,7 +406,9 @@
       
 
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode53</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> dp[] = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> max = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            dp[i] = Math.max(dp[i - <span class="number">1</span>] + nums[i], nums[i]);</span><br><span class="line">            max = Math.max(dp[i], max);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><br><blockquote class="blockquote-center"><p><em>“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”<br>Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。</em>  </p>
+</blockquote></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode53</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> dp[] = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> max = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            dp[i] = Math.max(dp[i - <span class="number">1</span>] + nums[i], nums[i]);</span><br><span class="line">            max = Math.max(dp[i], max);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -474,8 +476,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 31】Merge Intervals 合并区间/" rel="prev" title="【LeetCode 31】Merge Intervals 合并区间">
-                【LeetCode 31】Merge Intervals 合并区间 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/09/【LeetCode 27】Remove Element 移除元素/" rel="prev" title="【LeetCode 27】Remove Element 移除元素">
+                【LeetCode 27】Remove Element 移除元素 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -553,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

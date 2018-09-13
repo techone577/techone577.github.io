@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="12345678910111213141516171819202122232425262728293031/** * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 * candidates 中的数字可以无限制重复被选取。 * * dfs即可 */public class leetcode39">
+<meta name="description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    1234567891011121314151617181920212223242526">
 <meta name="keywords" content="算法,LeetCode,Medium">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LeetCode 39】 Combination Sum 组合总和">
 <meta property="og:url" content="http://yoursite.com/2018/09/09/【LeetCode 39】 Combination Sum 组合总和/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031/** * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 * candidates 中的数字可以无限制重复被选取。 * * dfs即可 */public class leetcode39">
+<meta property="og:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    1234567891011121314151617181920212223242526">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-09T16:30:01.783Z">
+<meta property="og:updated_time" content="2018-09-13T14:45:37.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【LeetCode 39】 Combination Sum 组合总和">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031/** * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 * candidates 中的数字可以无限制重复被选取。 * * dfs即可 */public class leetcode39">
+<meta name="twitter:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    1234567891011121314151617181920212223242526">
 
 
 
@@ -406,7 +406,9 @@
       
 
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</span></span><br><span class="line"><span class="comment"> * candidates 中的数字可以无限制重复被选取。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * dfs即可</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode39</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum (<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        helper(res, <span class="keyword">new</span> LinkedList&lt;Integer&gt;(), target, candidates,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">helper</span> <span class="params">(List&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; bag, <span class="keyword">int</span> target, <span class="keyword">int</span>[] nums,<span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (target == <span class="number">0</span>) &#123;</span><br><span class="line">            res.add(bag);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = pos; i &lt; nums.length; i++) &#123;</span><br><span class="line">                List&lt;Integer&gt; temp = <span class="keyword">new</span> LinkedList&lt;&gt;(bag);</span><br><span class="line">                bag.add(nums[i]);</span><br><span class="line">                helper(res, bag, target - nums[i], nums,i);</span><br><span class="line">                bag = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><br><blockquote class="blockquote-center"><p><em>“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”<br>Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。</em>  </p>
+</blockquote></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</span></span><br><span class="line"><span class="comment"> * candidates 中的数字可以无限制重复被选取。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * dfs即可</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode39</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; combinationSum (<span class="keyword">int</span>[] candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        helper(res, <span class="keyword">new</span> LinkedList&lt;Integer&gt;(), target, candidates,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">helper</span> <span class="params">(List&lt;List&lt;Integer&gt;&gt; res, List&lt;Integer&gt; bag, <span class="keyword">int</span> target, <span class="keyword">int</span>[] nums,<span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (target == <span class="number">0</span>) &#123;</span><br><span class="line">            res.add(bag);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (target &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = pos; i &lt; nums.length; i++) &#123;</span><br><span class="line">                List&lt;Integer&gt; temp = <span class="keyword">new</span> LinkedList&lt;&gt;(bag);</span><br><span class="line">                bag.add(nums[i]);</span><br><span class="line">                helper(res, bag, target - nums[i], nums,i);</span><br><span class="line">                bag = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -464,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 35】Search Insert Position 搜索插入位置/" rel="next" title="【LeetCode 35】Search Insert Position 搜索插入位置">
-                <i class="fa fa-chevron-left"></i> 【LeetCode 35】Search Insert Position 搜索插入位置
+              <a href="/2018/09/09/【LeetCode 367】Valid Perfect Square 有效的完全平方数 /" rel="next" title="【LeetCode 367】Valid Perfect Square 有效的完全平方数">
+                <i class="fa fa-chevron-left"></i> 【LeetCode 367】Valid Perfect Square 有效的完全平方数
               </a>
             
           </div>
@@ -474,8 +476,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 40】Combination Sum II 组合总和 II/" rel="prev" title="【LeetCode 40】Combination Sum II 组合总和 II">
-                【LeetCode 40】Combination Sum II 组合总和 II <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/09/【LeetCode 55】Jump Game 跳跃游戏/" rel="prev" title="【LeetCode 55】Jump Game 跳跃游戏">
+                【LeetCode 55】Jump Game 跳跃游戏 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -553,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1234567891011121314151617181920212223242526272829303132/** * * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线， * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线， * 使得它们与 x 轴共同构成的容器可以容纳最多的水。 * 说明：">
+<meta name="description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    1234567891011121314151617181920212223242526">
 <meta name="keywords" content="算法,LeetCode,Medium">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LeetCode 11】Container With Most Water 盛最多水的容器">
 <meta property="og:url" content="http://yoursite.com/2018/09/09/【LeetCode 11】Container With Most Water 盛最多水的容器/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132/** * * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线， * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线， * 使得它们与 x 轴共同构成的容器可以容纳最多的水。 * 说明：">
+<meta property="og:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    1234567891011121314151617181920212223242526">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-09T16:30:53.237Z">
+<meta property="og:updated_time" content="2018-09-13T14:46:44.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【LeetCode 11】Container With Most Water 盛最多水的容器">
-<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132/** * * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线， * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线， * 使得它们与 x 轴共同构成的容器可以容纳最多的水。 * 说明：">
+<meta name="twitter:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    1234567891011121314151617181920212223242526">
 
 
 
@@ -406,7 +406,9 @@
       
 
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，</span></span><br><span class="line"><span class="comment"> * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，</span></span><br><span class="line"><span class="comment"> * 使得它们与 x 轴共同构成的容器可以容纳最多的水。</span></span><br><span class="line"><span class="comment"> * 说明：你不能倾斜容器，且 n 的值至少为 2。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 最大面积取决于短边，所以每次移动较短的一边即可</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode11</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxArea</span> <span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (height.length &lt; <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = height.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> h = Math.min(height[left], height[right]);</span><br><span class="line">            max = Math.max(max, h * (right - left));</span><br><span class="line">            <span class="keyword">if</span> (h == height[left])</span><br><span class="line">                left++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> []h = &#123;<span class="number">1</span>,<span class="number">8</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">7</span>&#125;;</span><br><span class="line">        leetcode11.maxArea(h);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><br><blockquote class="blockquote-center"><p><em>“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”<br>Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。</em>  </p>
+</blockquote></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，</span></span><br><span class="line"><span class="comment"> * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，</span></span><br><span class="line"><span class="comment"> * 使得它们与 x 轴共同构成的容器可以容纳最多的水。</span></span><br><span class="line"><span class="comment"> * 说明：你不能倾斜容器，且 n 的值至少为 2。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 最大面积取决于短边，所以每次移动较短的一边即可</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode11</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxArea</span> <span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (height.length &lt; <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = height.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">int</span> h = Math.min(height[left], height[right]);</span><br><span class="line">            max = Math.max(max, h * (right - left));</span><br><span class="line">            <span class="keyword">if</span> (h == height[left])</span><br><span class="line">                left++;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String []args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> []h = &#123;<span class="number">1</span>,<span class="number">8</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">3</span>,<span class="number">7</span>&#125;;</span><br><span class="line">        leetcode11.maxArea(h);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -464,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 8】String to Integer (atoi) 字符串转整数 (atoi)/" rel="next" title="【LeetCode 8】String to Integer (atoi) 字符串转整数 (atoi)">
-                <i class="fa fa-chevron-left"></i> 【LeetCode 8】String to Integer (atoi) 字符串转整数 (atoi)
+              <a href="/2018/09/09/LeetCode 2】Add Two Numbers 两数相加/" rel="next" title="【LeetCode 2】Add Two Numbers 两数相加">
+                <i class="fa fa-chevron-left"></i> 【LeetCode 2】Add Two Numbers 两数相加
               </a>
             
           </div>
@@ -474,8 +476,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/09/LeetCode 2】Add Two Numbers 两数相加/" rel="prev" title="【LeetCode 2】Add Two Numbers 两数相加">
-                【LeetCode 2】Add Two Numbers 两数相加 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/09/【LeetCode 19】Remove Nth Node From End of List 删除链表的倒数第N个节点/" rel="prev" title="【LeetCode 19】Remove Nth Node From End of List 删除链表的倒数第N个节点">
+                【LeetCode 19】Remove Nth Node From End of List 删除链表的倒数第N个节点 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -553,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

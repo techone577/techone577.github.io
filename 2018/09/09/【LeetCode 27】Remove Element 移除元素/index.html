@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="123456789101112131415161718192021/** * 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。 * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。 */public class leetcode2">
+<meta name="description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415161718192021/** * 给定一个">
 <meta name="keywords" content="算法,LeetCode,Easy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LeetCode 27】Remove Element 移除元素">
 <meta property="og:url" content="http://yoursite.com/2018/09/09/【LeetCode 27】Remove Element 移除元素/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="123456789101112131415161718192021/** * 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。 * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。 */public class leetcode2">
+<meta property="og:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415161718192021/** * 给定一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-09T16:30:25.839Z">
+<meta property="og:updated_time" content="2018-09-13T14:46:06.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【LeetCode 27】Remove Element 移除元素">
-<meta name="twitter:description" content="123456789101112131415161718192021/** * 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。 * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。 */public class leetcode2">
+<meta name="twitter:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415161718192021/** * 给定一个">
 
 
 
@@ -406,7 +406,9 @@
       
 
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。</span></span><br><span class="line"><span class="comment"> * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</span></span><br><span class="line"><span class="comment"> * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode27</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement</span> <span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> pos=nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = nums.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val) &#123;</span><br><span class="line">                <span class="keyword">int</span> t = nums[pos];</span><br><span class="line">                nums[pos] = nums[i];</span><br><span class="line">                nums[i] = t;</span><br><span class="line">                count++;</span><br><span class="line">                pos--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums.length - count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><br><blockquote class="blockquote-center"><p><em>“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”<br>Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。</em>  </p>
+</blockquote></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。</span></span><br><span class="line"><span class="comment"> * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。</span></span><br><span class="line"><span class="comment"> * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode27</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement</span> <span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> pos=nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = nums.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val) &#123;</span><br><span class="line">                <span class="keyword">int</span> t = nums[pos];</span><br><span class="line">                nums[pos] = nums[i];</span><br><span class="line">                nums[i] = t;</span><br><span class="line">                count++;</span><br><span class="line">                pos--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums.length - count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -464,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 40】Combination Sum II 组合总和 II/" rel="next" title="【LeetCode 40】Combination Sum II 组合总和 II">
-                <i class="fa fa-chevron-left"></i> 【LeetCode 40】Combination Sum II 组合总和 II
+              <a href="/2018/09/09/【LeetCode 53】Maximum Subarray 最大子序和/" rel="next" title="【LeetCode 53】Maximum Subarray 最大子序和">
+                <i class="fa fa-chevron-left"></i> 【LeetCode 53】Maximum Subarray 最大子序和
               </a>
             
           </div>
@@ -474,8 +476,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 367】Valid Perfect Square 有效的完全平方数 /" rel="prev" title="【LeetCode 367】Valid Perfect Square 有效的完全平方数">
-                【LeetCode 367】Valid Perfect Square 有效的完全平方数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/09/【LeetCode 26】Remove Duplicates from Sorted Array 删除排序数组中的重复项/" rel="prev" title="【LeetCode 26】Remove Duplicates from Sorted Array 删除排序数组中的重复项">
+                【LeetCode 26】Remove Duplicates from Sorted Array 删除排序数组中的重复项 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -553,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

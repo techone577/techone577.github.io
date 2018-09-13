@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="123456789101112131415161718192021/** * 给定一个非负整数数组，你最初位于数组的第一个位置。 * 数组中的每个元素代表你在该位置可以跳跃的最大长度。 * 判断你是否能够到达最后一个位置。 * * 不断更新你能到达的最大位置 */public class leetcode55 &amp;#123;    public boolean canJump (int[] nums">
+<meta name="description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415161718192021/** * 给定一个">
 <meta name="keywords" content="算法,LeetCode,Medium">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【LeetCode 55】Jump Game 跳跃游戏">
 <meta property="og:url" content="http://yoursite.com/2018/09/09/【LeetCode 55】Jump Game 跳跃游戏/index.html">
 <meta property="og:site_name" content="Techone&#39;s Blog">
-<meta property="og:description" content="123456789101112131415161718192021/** * 给定一个非负整数数组，你最初位于数组的第一个位置。 * 数组中的每个元素代表你在该位置可以跳跃的最大长度。 * 判断你是否能够到达最后一个位置。 * * 不断更新你能到达的最大位置 */public class leetcode55 &amp;#123;    public boolean canJump (int[] nums">
+<meta property="og:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415161718192021/** * 给定一个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-09T16:29:31.214Z">
+<meta property="og:updated_time" content="2018-09-13T14:45:06.819Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【LeetCode 55】Jump Game 跳跃游戏">
-<meta name="twitter:description" content="123456789101112131415161718192021/** * 给定一个非负整数数组，你最初位于数组的第一个位置。 * 数组中的每个元素代表你在该位置可以跳跃的最大长度。 * 判断你是否能够到达最后一个位置。 * * 不断更新你能到达的最大位置 */public class leetcode55 &amp;#123;    public boolean canJump (int[] nums">
+<meta name="twitter:description" content="“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。    123456789101112131415161718192021/** * 给定一个">
 
 
 
@@ -406,7 +406,9 @@
       
 
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个非负整数数组，你最初位于数组的第一个位置。</span></span><br><span class="line"><span class="comment"> * 数组中的每个元素代表你在该位置可以跳跃的最大长度。</span></span><br><span class="line"><span class="comment"> * 判断你是否能够到达最后一个位置。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 不断更新你能到达的最大位置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode55</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span> <span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//注意是小于max</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= max; i++) &#123;</span><br><span class="line">            max = Math.max(max,nums[i]+i);</span><br><span class="line">            <span class="keyword">if</span> (max &gt;= nums.length-<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><br><blockquote class="blockquote-center"><p><em>“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”<br>Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。</em>  </p>
+</blockquote></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给定一个非负整数数组，你最初位于数组的第一个位置。</span></span><br><span class="line"><span class="comment"> * 数组中的每个元素代表你在该位置可以跳跃的最大长度。</span></span><br><span class="line"><span class="comment"> * 判断你是否能够到达最后一个位置。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 不断更新你能到达的最大位置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">leetcode55</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canJump</span> <span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//注意是小于max</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= max; i++) &#123;</span><br><span class="line">            max = Math.max(max,nums[i]+i);</span><br><span class="line">            <span class="keyword">if</span> (max &gt;= nums.length-<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -464,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 105】Construct Binary Tree from Preorder and Inorder Traversal 从前序与中序遍历序列构造二叉树/" rel="next" title="【LeetCode 31】Next Permutation 下一个排列">
-                <i class="fa fa-chevron-left"></i> 【LeetCode 31】Next Permutation 下一个排列
+              <a href="/2018/09/09/【LeetCode 39】 Combination Sum 组合总和/" rel="next" title="【LeetCode 39】 Combination Sum 组合总和">
+                <i class="fa fa-chevron-left"></i> 【LeetCode 39】 Combination Sum 组合总和
               </a>
             
           </div>
@@ -474,8 +476,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/09/【LeetCode 35】Search Insert Position 搜索插入位置/" rel="prev" title="【LeetCode 35】Search Insert Position 搜索插入位置">
-                【LeetCode 35】Search Insert Position 搜索插入位置 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/10/【LeetCode 476】Number Complement  数字的补数/" rel="prev" title="【LeetCode 476】Number Complement  数字的补数">
+                【LeetCode 476】Number Complement  数字的补数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -553,7 +555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
