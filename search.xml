@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SpringBoot 2.0 Http重定向到Https]]></title>
+    <url>%2F2018%2F12%2F16%2FSpringBoot%202.0%20Http%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0Https%2F</url>
+    <content type="text"><![CDATA[SpringBoot 2.0 Http重定向到Https根据《SpringBoot实战》操作~1、生成证书cd 到JDK目录下的bin文件夹命令：keytools -genkey alias tomcat问题：这里需要指定-keyalg RSA，不然会出现ERR_SSL_VERSION_OR_CIPHER_MISMATCH 错误 导致无法访问。即使修改配置文件中server.ssl.protocol=TLSserver.ssl.enabled-protocols=TLSv1.2server.ssl.ciphers = blabla协议版本和加密方式正确对应对应也无法解决ERR_SSL_VERSION_OR_CIPHER_MISMATCH2、http重定向到https12345678910111213141516171819202122232425@Bean public EmbeddedServletContainerFactory servletContainer()&#123; TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory()&#123; @Override protected void postProcessContext(Context context)&#123; SecurityConstraint securityConstraint = new SecurityConstraint(); securityConstraint.setUserConstraint("CONFIDENTIAL"); SecurityCollection collection = new SecurityCollection(); collection.addPattern("/*"); securityConstraint.addCollection(collection); context.addConstraint(securityConstraint); &#125; &#125;; tomcat.addAdditionalTomcatConnectors(httpConnector()); return tomcat; &#125; private Connector httpConnector() &#123; Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol"); connector.setScheme("http"); connector.setPort(8888); connector.setSecure(false); connector.setRedirectPort(8080); return connector; &#125; 其中SpringBoot2.0已经不支持EmbeddedServletContainerFactory和TomcatEmbeddedServletContainerFactory，需要修改为ServletWebServerFactory和TomcatServletWebServerFactory]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Spring Boot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[【Leetcode33】Search in Rotated Sorted Array 搜索旋转排序数组]]></title>
     <url>%2F2018%2F10%2F21%2F%5BLeetcode33%5D%20Search%20in%20Rotated%20Sorted%20Array%20%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%2F</url>
     <content type="text"><![CDATA[[Leetcode33] Search in Rotated Sorted Array 搜索旋转排序数组“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738/** * 假设按照升序排序的数组在预先未知的某个点上进行了旋转。 * ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。 * 搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。 * 你可以假设数组中不存在重复的元素。 * 你的算法时间复杂度必须是 O(log n) 级别。 * 示例 1: * 输入: nums = [4,5,6,7,0,1,2], target = 0 * 输出: 4 * 示例 2: * 输入: nums = [4,5,6,7,0,1,2], target = 3 * 输出: -1 */public class leetcode33 &#123; //二分 public int search (int[] nums, int target) &#123; int left = 0, right = nums.length - 1; while (left &lt;= right) &#123; int mid = (left+right)/2; if(nums[mid] == target) return mid; //转折点在右边 else if(nums[mid] &gt; nums[right])&#123; if(target &lt;nums[mid] &amp;&amp; target &gt;=nums[left]) right = mid-1; else left = mid+1; &#125;else&#123; //在左边 if(nums[mid]&lt;target &amp;&amp; target &lt;= nums[right]) left = mid + 1; else right = mid - 1; &#125; &#125; return -1; &#125;&#125;]]></content>
@@ -39,19 +50,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【Leetcode20】Longest Valid Parentheses 有效的括号]]></title>
-    <url>%2F2018%2F10%2F14%2F%5BLeetcode20%5D%20Valid%20Parentheses%20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%2F</url>
-    <content type="text"><![CDATA[[Leetcode20] Valid Parentheses 有效的括号“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627282930/** * 给定一个只包括 '('，')'，'&#123;'，'&#125;'，'['，']' 的字符串，判断字符串是否有效。 * 有效字符串需满足： * 左括号必须用相同类型的右括号闭合。 * 左括号必须以正确的顺序闭合。 * 注意空字符串可被认为是有效字符串。 */public class leetcode20 &#123; public boolean isValid (String s) &#123; if (("").equals(s)) return true; Stack&lt;Character&gt; stack = new Stack&lt;&gt;(); for (int i = 0; i &lt; s.length(); ++i) &#123; char c = s.charAt(i); if (c == '(' || c == '[' || c == '&#123;') stack.push(c); else &#123; if (stack.isEmpty()) return false; Character peek = stack.peek(); String match = new StringBuilder().append(peek).append(c).toString(); if ("()".equals(match) || "[]".equals(match) || "&#123;&#125;".equals(match)) stack.pop(); else stack.push(c); &#125; &#125; return stack.isEmpty(); &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Easy</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【Leetcode25】Reverse Nodes in k-Group k个一组翻转链表]]></title>
     <url>%2F2018%2F10%2F14%2F%5BLeetcode25%5D%20%20Reverse%20Nodes%20in%20k-Group%20k%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[[Leetcode25] Reverse Nodes in k-Group k个一组翻转链表“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950/** * 给出一个链表，每 k 个节点一组进行翻转，并返回翻转后的链表。 * k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么将最后剩余节点保持原有顺序。 * 示例 : * 给定这个链表：1-&gt;2-&gt;3-&gt;4-&gt;5 * 当 k = 2 时，应当返回: 2-&gt;1-&gt;4-&gt;3-&gt;5 * 当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5 * 说明 : * 你的算法只能使用常数的额外空间。 * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。 */public class leetcode25 &#123; // 1 2 3 4 5// 2 1 4 3 5 public ListNode reverseKGroup (ListNode head, int k) &#123; int length = 0; ListNode temp = head; while (temp != null) &#123; ++length; temp = temp.next; &#125; int count = length / k; ListNode current = head, pre = head, post = head, preTail = null, currentTail = head; for (int i = 0; i &lt; count; ++i) &#123; for (int j = 0; j &lt; k; ++j) &#123; if (j == 0) &#123; post = current.next; pre = current; currentTail = current; current = post; &#125; else &#123; post = current.next; current.next = pre; pre = current; current = post; &#125; &#125; if (preTail == null) &#123; preTail = currentTail; &#125; else &#123; preTail.next = pre; preTail = currentTail; &#125; if (i == 0) head = pre; &#125; if (preTail != null) preTail.next = current; return head; &#125;&#125;]]></content>
@@ -62,6 +60,19 @@
         <tag>算法</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【Leetcode20】Longest Valid Parentheses 有效的括号]]></title>
+    <url>%2F2018%2F10%2F14%2F%5BLeetcode20%5D%20Valid%20Parentheses%20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%2F</url>
+    <content type="text"><![CDATA[[Leetcode20] Valid Parentheses 有效的括号“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627282930/** * 给定一个只包括 '('，')'，'&#123;'，'&#125;'，'['，']' 的字符串，判断字符串是否有效。 * 有效字符串需满足： * 左括号必须用相同类型的右括号闭合。 * 左括号必须以正确的顺序闭合。 * 注意空字符串可被认为是有效字符串。 */public class leetcode20 &#123; public boolean isValid (String s) &#123; if (("").equals(s)) return true; Stack&lt;Character&gt; stack = new Stack&lt;&gt;(); for (int i = 0; i &lt; s.length(); ++i) &#123; char c = s.charAt(i); if (c == '(' || c == '[' || c == '&#123;') stack.push(c); else &#123; if (stack.isEmpty()) return false; Character peek = stack.peek(); String match = new StringBuilder().append(peek).append(c).toString(); if ("()".equals(match) || "[]".equals(match) || "&#123;&#125;".equals(match)) stack.pop(); else stack.push(c); &#125; &#125; return stack.isEmpty(); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -143,9 +154,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【Leetcode80】Largest Rectangle in Histogram 最大面积覆盖的矩阵]]></title>
-    <url>%2F2018%2F09%2F27%2F%5BLeetcode85%5D%20Largest%20Rectangle%20%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%2F</url>
-    <content type="text"><![CDATA[[Leetcode85] Largest Rectangle 最大矩形“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960/** * 给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。 * 示例: * 输入: * [ * ['1','0','1','0','0'], * ['1','0','1','1','1'], * ['1','1','1','1','1'], * ['1','0','0','1','0'] * ] * 输出: 6 * * 将矩阵转换成一每一行为底的柱形图，以leetcode84方法求解 */public class leetcode85 &#123; public int maximalRectangle (char[][] matrix) &#123; if (matrix.length == 0) return 0; int column = matrix[0].length, row = matrix.length; int max = 0; int[][] numOfOne = new int[row][column]; for (int i = 0; i &lt; row; ++i) &#123; int[] heights = new int[column]; for (int j = 0; j &lt; column; ++j) &#123; if (matrix[i][j] == '0') numOfOne[i][j] = 0; else numOfOne[i][j] = i &gt; 0 ? numOfOne[i - 1][j] + 1 : 1; heights[j] = numOfOne[i][j]; &#125; max = Math.max(largestRectangleArea(heights), max); &#125; return max; &#125; public int largestRectangleArea (int[] heights) &#123; int max = 0; for (int i = 0; i &lt; heights.length; ++i) &#123; int index = heights[i]; int l = i, r = i; while (l &gt;= 0 &amp;&amp; heights[l] &gt;= index) --l; while (r &lt; heights.length &amp;&amp; heights[r] &gt;= index) ++r; int area = heights[i] * (r - l + 1 - 2); max = Math.max(area, max); &#125; return max; &#125; public static void main (String[] args) &#123; char[][] nums = new char[][]&#123; &#123;'1', '0', '1', '0', '0'&#125;, &#123;'1', '0', '1', '1', '1'&#125;, &#123;'1', '1', '1', '1', '1'&#125;, &#123;'1', '0', '0', '1', '0'&#125; &#125;; new leetcode85().maximalRectangle(nums); &#125;&#125;]]></content>
+    <title><![CDATA[【Leetcode84】Largest Rectangle in Histogram 最大面积覆盖的矩阵]]></title>
+    <url>%2F2018%2F09%2F27%2F%5BLeetcode84%5D%20Largest%20Rectangle%20in%20Histogram%20%20%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF%E8%A6%86%E7%9B%96%E7%9A%84%E7%9F%A9%E9%98%B5%2F</url>
+    <content type="text"><![CDATA[[Leetcode84] Largest Rectangle in Histogram 最大面积覆盖的矩阵“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627/** * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 * 求在该柱状图中，能够勾勒出来的矩形的最大面积。 * * 从中间向两端发散计算 */public class leetcode84 &#123; public int largestRectangleArea (int[] heights) &#123; int max = 0; for (int i = 0; i &lt; heights.length; ++i) &#123; int index = heights[i]; int l = i, r = i; while (l &gt;= 0 &amp;&amp; heights[l] &gt;= index) --l; while (r &lt; heights.length &amp;&amp; heights[r] &gt;= index) ++r; int area = heights[i] * (r - l + 1-2); max = Math.max(area, max); &#125; return max; &#125; public static void main (String[] args) &#123; int[] nums = new int[]&#123;2, 1, 5, 6, 2, 3&#125;; new leetcode84().largestRectangleArea(nums); &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -169,35 +180,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【Leetcode84】Largest Rectangle in Histogram 最大面积覆盖的矩阵]]></title>
-    <url>%2F2018%2F09%2F27%2F%5BLeetcode84%5D%20Largest%20Rectangle%20in%20Histogram%20%20%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF%E8%A6%86%E7%9B%96%E7%9A%84%E7%9F%A9%E9%98%B5%2F</url>
-    <content type="text"><![CDATA[[Leetcode84] Largest Rectangle in Histogram 最大面积覆盖的矩阵“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627/** * 给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 * 求在该柱状图中，能够勾勒出来的矩形的最大面积。 * * 从中间向两端发散计算 */public class leetcode84 &#123; public int largestRectangleArea (int[] heights) &#123; int max = 0; for (int i = 0; i &lt; heights.length; ++i) &#123; int index = heights[i]; int l = i, r = i; while (l &gt;= 0 &amp;&amp; heights[l] &gt;= index) --l; while (r &lt; heights.length &amp;&amp; heights[r] &gt;= index) ++r; int area = heights[i] * (r - l + 1-2); max = Math.max(area, max); &#125; return max; &#125; public static void main (String[] args) &#123; int[] nums = new int[]&#123;2, 1, 5, 6, 2, 3&#125;; new leetcode84().largestRectangleArea(nums); &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Hard</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【Leetcode80】Remove Duplicates from Sorted Array II 删除数组中的重复项II]]></title>
     <url>%2F2018%2F09%2F27%2F%5BLeetcode80%5D%20Remove%20Duplicates%20from%20Sorted%20Array%20II%20%20%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9II%2F</url>
     <content type="text"><![CDATA[[Leetcode80] Remove Duplicates from Sorted Array II 删除数组中的重复项II“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728/** * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。 * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 * 示例 1: * 给定 nums = [1,1,1,2,2,3], * 函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。 * 你不需要考虑数组中超出新长度后面的元素。 * &lt;p&gt; * 注意是排好序的數組，所以比较前两个就好 */public class leetcode80 &#123; public int removeDuplicates (int[] nums) &#123; int index = 2; for (int i = 2; i &lt; nums.length; i++) &#123; if (nums[i] != nums[index - 2]) &#123; nums[index] = nums[i]; index++; &#125; &#125; return index; &#125; public static void main (String[] args) &#123; int[] nums = new int[]&#123;1, 1, 1, 2, 2, 2, 3, 3, 4&#125;; new leetcode80().removeDuplicates(nums); &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Medium</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[【Leetcode17】Letter Combinations of a Phone Number 电话号码的字母组合]]></title>
-    <url>%2F2018%2F09%2F27%2F%5BLeetcode17%5D%20Letter%20Combinations%20of%20a%20Phone%20Number%20%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88%2F</url>
-    <content type="text"><![CDATA[[Leetcode17] Letter Combinations of a Phone Number 电话号码的字母组合“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728293031323334353637383940414243/** * 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。 * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 * 可以任意选择答案输出的顺序 * * dfs */public class leetcode17 &#123; private static Map&lt;Character, String&gt; map = new HashMap&lt;&gt;(); public List&lt;String&gt; letterCombinations (String digits) &#123; if (digits.length() == 0) return new ArrayList&lt;String&gt;(); map.put('2', "abc"); map.put('3', "def"); map.put('4', "ghi"); map.put('5', "jkl"); map.put('6', "mno"); map.put('7', "pqrs"); map.put('8', "tuv"); map.put('9', "wxyz"); List&lt;String&gt; res = new ArrayList&lt;&gt;(); helper(res, new String(), digits, 0); return res; &#125; private void helper (List&lt;String&gt; res, String bag, String digits, int pos) &#123; if (pos == digits.length()) &#123; res.add(bag); return; &#125; char digit = digits.charAt(pos); String letter = map.get(digit); for (int i = 0; i &lt; letter.length(); i++) &#123; helper(res, bag + letter.charAt(i), digits, pos + 1); &#125; &#125; public static void main (String[] args) &#123; new leetcode17().letterCombinations("23"); &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -219,6 +204,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[【Leetcode17】Letter Combinations of a Phone Number 电话号码的字母组合]]></title>
+    <url>%2F2018%2F09%2F27%2F%5BLeetcode17%5D%20Letter%20Combinations%20of%20a%20Phone%20Number%20%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88%2F</url>
+    <content type="text"><![CDATA[[Leetcode17] Letter Combinations of a Phone Number 电话号码的字母组合“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728293031323334353637383940414243/** * 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。 * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 * 可以任意选择答案输出的顺序 * * dfs */public class leetcode17 &#123; private static Map&lt;Character, String&gt; map = new HashMap&lt;&gt;(); public List&lt;String&gt; letterCombinations (String digits) &#123; if (digits.length() == 0) return new ArrayList&lt;String&gt;(); map.put('2', "abc"); map.put('3', "def"); map.put('4', "ghi"); map.put('5', "jkl"); map.put('6', "mno"); map.put('7', "pqrs"); map.put('8', "tuv"); map.put('9', "wxyz"); List&lt;String&gt; res = new ArrayList&lt;&gt;(); helper(res, new String(), digits, 0); return res; &#125; private void helper (List&lt;String&gt; res, String bag, String digits, int pos) &#123; if (pos == digits.length()) &#123; res.add(bag); return; &#125; char digit = digits.charAt(pos); String letter = map.get(digit); for (int i = 0; i &lt; letter.length(); i++) &#123; helper(res, bag + letter.charAt(i), digits, pos + 1); &#125; &#125; public static void main (String[] args) &#123; new leetcode17().letterCombinations("23"); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[堆排序]]></title>
     <url>%2F2018%2F09%2F27%2F%E5%A0%86%E6%8E%92%E5%BA%8F%2F</url>
     <content type="text"><![CDATA[堆排序“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849public class HeapSort &#123; public static void HeapSort (int[] nums) &#123; buildHeap(nums); for(int i=nums.length-1;i&gt;=0;i--)&#123; int temp = nums[0]; nums[0] = nums[i]; nums[i] = temp; maxHeapfy(nums,0,i); &#125; &#125; /** * 建堆，从下往上调整，从(n-1)/2-0，只有这些节点有子节点 */ private static void buildHeap (int[] nums) &#123; for (int i = ((nums.length - 1) - 1) / 2; i &gt;= 0; --i) &#123; maxHeapfy(nums,i,nums.length); &#125; &#125; //length排序时用来限定排好的位数 private static void maxHeapfy (int[] nums, int index,int length) &#123; for (; ; ) &#123; int max = index; int left = 2 * max + 1; int right = 2 * max + 2; //父节点、左孩子、右孩子选出最大 if (left &lt; length &amp;&amp; nums[left] &gt; nums[max]) max = left; if (right &lt; length &amp;&amp; nums[right] &gt; nums[max]) max = right; //交换并递归调整 if (max != index) &#123; int temp = nums[index]; nums[index] = nums[max]; nums[max] = temp; index = max; &#125; else break; &#125; &#125; public static void main (String[] args) &#123; int []nums = new int[] &#123;4,3,6,2,1,8,5,9,10,0&#125;; HeapSort(nums); for(int t:nums) &#123; System.out.print(t+" "); &#125; &#125;&#125;]]></content>
@@ -227,6 +225,19 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【Leetcode80】Largest Rectangle in Histogram 最大面积覆盖的矩阵]]></title>
+    <url>%2F2018%2F09%2F27%2F%5BLeetcode85%5D%20Largest%20Rectangle%20%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%2F</url>
+    <content type="text"><![CDATA[[Leetcode85] Largest Rectangle 最大矩形“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960/** * 给定一个仅包含 0 和 1 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积。 * 示例: * 输入: * [ * ['1','0','1','0','0'], * ['1','0','1','1','1'], * ['1','1','1','1','1'], * ['1','0','0','1','0'] * ] * 输出: 6 * * 将矩阵转换成一每一行为底的柱形图，以leetcode84方法求解 */public class leetcode85 &#123; public int maximalRectangle (char[][] matrix) &#123; if (matrix.length == 0) return 0; int column = matrix[0].length, row = matrix.length; int max = 0; int[][] numOfOne = new int[row][column]; for (int i = 0; i &lt; row; ++i) &#123; int[] heights = new int[column]; for (int j = 0; j &lt; column; ++j) &#123; if (matrix[i][j] == '0') numOfOne[i][j] = 0; else numOfOne[i][j] = i &gt; 0 ? numOfOne[i - 1][j] + 1 : 1; heights[j] = numOfOne[i][j]; &#125; max = Math.max(largestRectangleArea(heights), max); &#125; return max; &#125; public int largestRectangleArea (int[] heights) &#123; int max = 0; for (int i = 0; i &lt; heights.length; ++i) &#123; int index = heights[i]; int l = i, r = i; while (l &gt;= 0 &amp;&amp; heights[l] &gt;= index) --l; while (r &lt; heights.length &amp;&amp; heights[r] &gt;= index) ++r; int area = heights[i] * (r - l + 1 - 2); max = Math.max(area, max); &#125; return max; &#125; public static void main (String[] args) &#123; char[][] nums = new char[][]&#123; &#123;'1', '0', '1', '0', '0'&#125;, &#123;'1', '0', '1', '1', '1'&#125;, &#123;'1', '1', '1', '1', '1'&#125;, &#123;'1', '0', '0', '1', '0'&#125; &#125;; new leetcode85().maximalRectangle(nums); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Hard</tag>
       </tags>
   </entry>
   <entry>
@@ -278,19 +289,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 79】 Word Search 单词搜素]]></title>
-    <url>%2F2018%2F09%2F13%2F%5BLeetCode%2079%5D%20Word%20Search%20%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A0%2F</url>
-    <content type="text"><![CDATA[[LeetCode 79] Word Search 单词搜素“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738394041424344/** * 给定一个二维网格和一个单词，找出该单词是否存在于网格中。 * 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。 */public class leetcode79 &#123; public boolean exist (char[][] board, String word) &#123; for (int i = 0; i &lt; board.length; i++) &#123; for (int j = 0; j &lt; board[0].length; j++) &#123; if (board[i][j] == word.charAt(0)) &#123; if (helper(board, word, i, j, 0)) return true; &#125; &#125; &#125; return false; &#125; private boolean helper (char[][] board, String word, int i, int j, int pos) &#123; if (pos == word.length()) return true; if (i &gt;= board.length || j &gt;= board[0].length || i &lt; 0 || j &lt; 0) return false; if (word.charAt(pos) != board[i][j]) return false; boolean res = false; char temp = board[i][j]; //表示已经访问不能再次访问 board[i][j] = '*'; res = helper(board, word, i - 1, j, pos + 1) || helper(board, word, i + 1, j, pos + 1) || helper(board, word, i, j - 1, pos + 1) || helper(board, word, i, j + 1, pos + 1); //恢复未访问状态 board[i][j] = temp; return res; &#125; public static void main (String []args) &#123; char [][]a= new char [][]&#123;&#123;'C','A','A'&#125;, &#123;'A','A','A'&#125;, &#123;'B','C','D'&#125;&#125;; new leetcode79().exist(a,"AAB"); &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Medium</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【LeetCode 93】Restore IP Addresses 恢复IP地址]]></title>
     <url>%2F2018%2F09%2F13%2F%5BLeetCode%2093%5D%20Restore%20IP%20Addresses%20%E6%81%A2%E5%A4%8DIP%E5%9C%B0%E5%9D%80%2F</url>
     <content type="text"><![CDATA[[LeetCode 93] Restore IP Addresses 恢复IP地址“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950/** * 给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。 * 示例: * 输入: "25525511135" * 输出: ["255.255.11.135", "255.255.111.35"] */public class leetcode93 &#123; public List&lt;String&gt; restoreIpAddresses (String s) &#123; StringBuilder str = new StringBuilder(s); List&lt;String&gt; res = new ArrayList&lt;&gt;(); if(s.length()&lt;4 || s.length()&gt;12) return res; helper(res, s, new String(), 0, 1); return res; &#125; private void helper (List&lt;String&gt; res, String s, String str, int pos, int depth) &#123; if (depth &gt; 3) &#123; //插入四个即为终止条件 String seg = s.substring(pos); if (isValid(seg)) &#123; str = str + seg; res.add(str); &#125; return; &#125; //有效位只能为3位以内 for (int i = 1; i &lt;= 3 &amp;&amp; pos + i &lt; s.length(); i++) &#123; //important String seg = s.substring(pos, pos + i); if (isValid(seg)) &#123; helper(res, s, str + seg + ".", pos + i, depth + 1); &#125; &#125; &#125; private boolean isValid (String seg) &#123; if(seg.charAt(0) == '0' &amp;&amp; seg.length()&gt;1) return false; int ipNum = Integer.valueOf(seg); if (0 &lt;= ipNum &amp;&amp; ipNum &lt;= 255) return true; return false; &#125; public static void main (String[] args) &#123; new leetcode93().restoreIpAddresses("010010"); &#125;&#125;]]></content>
@@ -304,6 +302,32 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[【LeetCode 79】 Word Search 单词搜素]]></title>
+    <url>%2F2018%2F09%2F13%2F%5BLeetCode%2079%5D%20Word%20Search%20%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[[LeetCode 79] Word Search 单词搜素“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738394041424344/** * 给定一个二维网格和一个单词，找出该单词是否存在于网格中。 * 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。 */public class leetcode79 &#123; public boolean exist (char[][] board, String word) &#123; for (int i = 0; i &lt; board.length; i++) &#123; for (int j = 0; j &lt; board[0].length; j++) &#123; if (board[i][j] == word.charAt(0)) &#123; if (helper(board, word, i, j, 0)) return true; &#125; &#125; &#125; return false; &#125; private boolean helper (char[][] board, String word, int i, int j, int pos) &#123; if (pos == word.length()) return true; if (i &gt;= board.length || j &gt;= board[0].length || i &lt; 0 || j &lt; 0) return false; if (word.charAt(pos) != board[i][j]) return false; boolean res = false; char temp = board[i][j]; //表示已经访问不能再次访问 board[i][j] = '*'; res = helper(board, word, i - 1, j, pos + 1) || helper(board, word, i + 1, j, pos + 1) || helper(board, word, i, j - 1, pos + 1) || helper(board, word, i, j + 1, pos + 1); //恢复未访问状态 board[i][j] = temp; return res; &#125; public static void main (String []args) &#123; char [][]a= new char [][]&#123;&#123;'C','A','A'&#125;, &#123;'A','A','A'&#125;, &#123;'B','C','D'&#125;&#125;; new leetcode79().exist(a,"AAB"); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【LeetCode 476】Number Complement 数字的补数]]></title>
+    <url>%2F2018%2F09%2F10%2F%E3%80%90LeetCode%20476%E3%80%91Number%20Complement%20%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819/** * 给定一个正整数，输出它的补数。补数是对该数的二进制表示取反。 * 注意: * 给定的整数保证在32位带符号整数的范围内, * 你可以假定二进制数不包含前导零位。 * * 对二进制取反，其实就是与相同位数全为1的二进制异或 * Integer.highestOneBit(n),比如n二进制位1100，则计算出的结果为10000，所以全为1用前面所求的值-1即可 */public class leetcode476 &#123; public static int findComplement (int num) &#123; int mask = (Integer.highestOneBit(num) &lt;&lt; 1) - 1; return mask ^ num; &#125; public static void main (String[] args) &#123; System.out.print(leetcode476.findComplement(5)); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Easy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[【LeetCode 41】First Missing Positive 缺失的第一个正数]]></title>
     <url>%2F2018%2F09%2F10%2F%E3%80%90LeetCode%2041%E3%80%91First%20Missing%20Positive%20%E7%BC%BA%E5%A4%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%AD%A3%E6%95%B0%2F</url>
     <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728293031323334/** * 给定一个未排序的整数数组，找出其中没有出现的最小的正整数。 * 输入: [1,2,0] * 输出: 3 * 示例 2: * 输入: [3,4,-1,1] * 输出: 2 * 示例 3: * 输入: [7,8,9,11,12] * 输出: 1 * * 下标i存储i+1，若为负数或超出数组长度则位置不变 * 找出第一个nums[i] != i+1即为所解 */public class leetcode41 &#123; public int firstMissingPositive(int[] nums) &#123; int i = 0, n = nums.length; if (n == 0) return 1; while (i &lt; n) &#123; if (nums[i] != i + 1 &amp;&amp; nums[i] &gt; 0 &amp;&amp; nums[i] &lt; n &amp;&amp; nums[nums[i] - 1] != nums[i]) &#123; int t = nums[nums[i] - 1]; nums[nums[i] - 1] = nums[i]; nums[i] = t; &#125; else ++i; &#125; for (i = 0; i &lt; n; i++) &#123; if (nums[i] != i + 1) return i + 1; &#125; return n + 1; &#125;&#125;]]></content>
@@ -314,19 +338,6 @@
         <tag>算法</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[【LeetCode 31】Next Permutation 下一个排列]]></title>
-    <url>%2F2018%2F09%2F10%2F%E3%80%90LeetCode%2031%E3%80%91Next%20Permutation%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 CODE123456789101112131415161718192021222324252627282930313233/** * 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。 * 如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。 * 必须原地修改，只允许使用额外常数空间。 * * 下一个全排列就是找到比当前数大的最小值，找到降序排列开始的位置，记为i，从i到n找到比nums[i-1]大的最小值与i-1交换， * 并将交换后i之后序列按升序排列，若整个序列都为降序则反转 */public class leetcode31 &#123; public void nextPermutation (int[] nums) &#123; int i = nums.length - 1; while (i &gt; 0 &amp;&amp; nums[i] &lt;= nums[i - 1]) &#123; i--; &#125; if(i==0) Arrays.sort(nums); else&#123; int index = nums[i-1]; int j; for(j=nums.length-1;j&gt;=i;j--)&#123; if(nums[j]&gt;index) break; &#125; int temp = nums[i-1]; nums[i-1]=nums[j]; nums[j]=temp; Arrays.sort(nums,i,nums.length); &#125; &#125; public static void main(String []args)&#123; new leetcode31().nextPermutation(new int[]&#123;5,1,1&#125;); &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -356,16 +367,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 476】Number Complement 数字的补数]]></title>
-    <url>%2F2018%2F09%2F10%2F%E3%80%90LeetCode%20476%E3%80%91Number%20Complement%20%20%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A5%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819/** * 给定一个正整数，输出它的补数。补数是对该数的二进制表示取反。 * 注意: * 给定的整数保证在32位带符号整数的范围内, * 你可以假定二进制数不包含前导零位。 * * 对二进制取反，其实就是与相同位数全为1的二进制异或 * Integer.highestOneBit(n),比如n二进制位1100，则计算出的结果为10000，所以全为1用前面所求的值-1即可 */public class leetcode476 &#123; public static int findComplement (int num) &#123; int mask = (Integer.highestOneBit(num) &lt;&lt; 1) - 1; return mask ^ num; &#125; public static void main (String[] args) &#123; System.out.print(leetcode476.findComplement(5)); &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 31】Next Permutation 下一个排列]]></title>
+    <url>%2F2018%2F09%2F10%2F%E3%80%90LeetCode%2031%E3%80%91Next%20Permutation%20%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 CODE123456789101112131415161718192021222324252627282930313233/** * 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。 * 如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。 * 必须原地修改，只允许使用额外常数空间。 * * 下一个全排列就是找到比当前数大的最小值，找到降序排列开始的位置，记为i，从i到n找到比nums[i-1]大的最小值与i-1交换， * 并将交换后i之后序列按升序排列，若整个序列都为降序则反转 */public class leetcode31 &#123; public void nextPermutation (int[] nums) &#123; int i = nums.length - 1; while (i &gt; 0 &amp;&amp; nums[i] &lt;= nums[i - 1]) &#123; i--; &#125; if(i==0) Arrays.sort(nums); else&#123; int index = nums[i-1]; int j; for(j=nums.length-1;j&gt;=i;j--)&#123; if(nums[j]&gt;index) break; &#125; int temp = nums[i-1]; nums[i-1]=nums[j]; nums[j]=temp; Arrays.sort(nums,i,nums.length); &#125; &#125; public static void main(String []args)&#123; new leetcode31().nextPermutation(new int[]&#123;5,1,1&#125;); &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
       <tags>
         <tag>算法</tag>
         <tag>LeetCode</tag>
-        <tag>Easy</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -421,16 +432,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 57】 Insert Interval 插入区间]]></title>
-    <url>%2F2018%2F09%2F09%2F%5BLeetCode%2057%5D%20Insert%20Interval%20%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4%2F</url>
-    <content type="text"><![CDATA[[LeetCode 57] Insert Interval 插入区间“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051/** * 给出一个无重叠的 ，按照区间起始端点排序的区间列表。 * 在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。 * * copy 56，把要加入的区间放到集合中合并 */public class leetcode57 &#123; public class Interval &#123; int start; int end; Interval () &#123; start = 0; end = 0; &#125; Interval (int s, int e) &#123; start = s; end = e; &#125; &#125; public List&lt;Interval&gt; insert (List&lt;Interval&gt; intervals, Interval newInterval) &#123; intervals.add(newInterval); return merge(intervals); &#125; public List&lt;Interval&gt; merge (List&lt;Interval&gt; intervals) &#123; Collections.sort(intervals, new Comparator&lt;Interval&gt;() &#123; @Override public int compare (Interval o1, Interval o2) &#123; return Integer.compare(o1.start, o2.start); &#125; &#125;); List&lt;Interval&gt; res = new ArrayList&lt;&gt;(); for (int i = 1; i &lt; intervals.size(); i++) &#123; Interval left = intervals.get(i - 1); Interval right = intervals.get(i); Interval mergeInterval = new Interval(); if (right.start &lt;= left.end) &#123; mergeInterval = new Interval(left.start, Math.max(left.end, right.end)); intervals.set(i, mergeInterval); &#125; else res.add(intervals.get(i - 1)); &#125; res.add(intervals.get(intervals.size() - 1)); return res; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 26】Remove Duplicates from Sorted Array 删除排序数组中的重复项]]></title>
+    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2026%E3%80%91Remove%20Duplicates%20from%20Sorted%20Array%20%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617/** * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。 * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 */public class leetcode26 &#123; public int removeDuplicates (int[] nums) &#123; int pos = 0; for (int i = 0; i &lt; nums.length; i++) &#123; if (nums[pos] != nums[i]) &#123; pos++; nums[pos] = nums[i]; &#125; &#125; return pos+1; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
       <tags>
         <tag>算法</tag>
         <tag>LeetCode</tag>
-        <tag>Hard</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -447,9 +458,22 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 19】Remove Nth Node From End of List 删除链表的倒数第N个节点]]></title>
-    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2019%E3%80%91Remove%20Nth%20Node%20From%20End%20of%20List%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728293031/** * * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 * 一趟扫描 * 两个指针，一个先走n步，然后两个指针同时走，第一个指针到末尾，第二个指针的位置就是倒数第n个节点 * */public class leetcode19 &#123; public ListNode removeNthFromEnd (ListNode head, int n) &#123; ListNode i = head, j = head; for (int k = 0; k &lt; n; k++) &#123; j = j.next; &#125; ListNode temp = i; while (j != null) &#123; j = j.next; temp = i; i = i.next; &#125; if (temp == i) &#123; head = head.next; return head; &#125; else &#123; temp.next = i.next; i.next = null; &#125; return head; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 57】 Insert Interval 插入区间]]></title>
+    <url>%2F2018%2F09%2F09%2F%5BLeetCode%2057%5D%20Insert%20Interval%20%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4%2F</url>
+    <content type="text"><![CDATA[[LeetCode 57] Insert Interval 插入区间“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051/** * 给出一个无重叠的 ，按照区间起始端点排序的区间列表。 * 在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。 * * copy 56，把要加入的区间放到集合中合并 */public class leetcode57 &#123; public class Interval &#123; int start; int end; Interval () &#123; start = 0; end = 0; &#125; Interval (int s, int e) &#123; start = s; end = e; &#125; &#125; public List&lt;Interval&gt; insert (List&lt;Interval&gt; intervals, Interval newInterval) &#123; intervals.add(newInterval); return merge(intervals); &#125; public List&lt;Interval&gt; merge (List&lt;Interval&gt; intervals) &#123; Collections.sort(intervals, new Comparator&lt;Interval&gt;() &#123; @Override public int compare (Interval o1, Interval o2) &#123; return Integer.compare(o1.start, o2.start); &#125; &#125;); List&lt;Interval&gt; res = new ArrayList&lt;&gt;(); for (int i = 1; i &lt; intervals.size(); i++) &#123; Interval left = intervals.get(i - 1); Interval right = intervals.get(i); Interval mergeInterval = new Interval(); if (right.start &lt;= left.end) &#123; mergeInterval = new Interval(left.start, Math.max(left.end, right.end)); intervals.set(i, mergeInterval); &#125; else res.add(intervals.get(i - 1)); &#125; res.add(intervals.get(intervals.size() - 1)); return res; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Hard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【LeetCode 31】Next Permutation 下一个排列]]></title>
+    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%20105%E3%80%91Construct%20Binary%20Tree%20from%20Preorder%20and%20Inorder%20Traversal%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738394041/** * 根据一棵树的前序遍历与中序遍历构造二叉树 * 注意: * 你可以假设树中没有重复的元素。 * * 递归构建 */public class leetcode105 &#123; /** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */ //根据前序和中序构件树 public TreeNode buildTree (int[] preorder, int[] inorder) &#123; return helper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1); &#125; private TreeNode helper (int[] preorder, int preS, int preE, int[] inorder, int inS, int inE) &#123; if (preS &gt; preE || inS &gt; inE) return null; TreeNode res = new TreeNode(preorder[preS]); int pos = inS; for (int i = inS; i &lt;= inE; i++) &#123; if (inorder[i] == preorder[preS]) &#123; pos = i; break; &#125; &#125; //这个preE要算准确 res.left = helper(preorder, preS + 1, preS + pos-inS, inorder, inS, pos - 1); res.right = helper(preorder, preS + pos-inS+1, preE, inorder, pos + 1, inE); return res; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -473,19 +497,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 31】Next Permutation 下一个排列]]></title>
-    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%20105%E3%80%91Construct%20Binary%20Tree%20from%20Preorder%20and%20Inorder%20Traversal%20%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132333435363738394041/** * 根据一棵树的前序遍历与中序遍历构造二叉树 * 注意: * 你可以假设树中没有重复的元素。 * * 递归构建 */public class leetcode105 &#123; /** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */ //根据前序和中序构件树 public TreeNode buildTree (int[] preorder, int[] inorder) &#123; return helper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1); &#125; private TreeNode helper (int[] preorder, int preS, int preE, int[] inorder, int inS, int inE) &#123; if (preS &gt; preE || inS &gt; inE) return null; TreeNode res = new TreeNode(preorder[preS]); int pos = inS; for (int i = inS; i &lt;= inE; i++) &#123; if (inorder[i] == preorder[preS]) &#123; pos = i; break; &#125; &#125; //这个preE要算准确 res.left = helper(preorder, preS + 1, preS + pos-inS, inorder, inS, pos - 1); res.right = helper(preorder, preS + pos-inS+1, preE, inorder, pos + 1, inE); return res; &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Medium</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【LeetCode 11】Container With Most Water 盛最多水的容器]]></title>
     <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2011%E3%80%91Container%20With%20Most%20Water%20%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8%2F</url>
     <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617181920212223242526272829303132/** * * 给定 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线， * 垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线， * 使得它们与 x 轴共同构成的容器可以容纳最多的水。 * 说明：你不能倾斜容器，且 n 的值至少为 2。 * * 最大面积取决于短边，所以每次移动较短的一边即可 */public class leetcode11 &#123; public static int maxArea (int[] height) &#123; if (height.length &lt; 2) return 0; int left = 0; int right = height.length-1; int max = 0; while (left &lt; right) &#123; int h = Math.min(height[left], height[right]); max = Math.max(max, h * (right - left)); if (h == height[left]) left++; else right--; &#125; return max; &#125; public static void main(String []args)&#123; int []h = &#123;1,8,6,2,5,4,8,3,7&#125;; leetcode11.maxArea(h); &#125;&#125;]]></content>
@@ -499,9 +510,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 35】Search Insert Position 搜索插入位置]]></title>
-    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2035%E3%80%91Search%20Insert%20Position%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425/** * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。 * 你可以假设数组中无重复元素。 * * 二分查找下界 */public class leetcode35 &#123; public int searchInsert (int[] nums, int target) &#123; return boundSearch(nums,0,nums.length,target); &#125; public int boundSearch (int[] nums, int left, int right, int target) &#123; while (left &lt; right) &#123; int mid = (left + right) / 2; if (nums[mid] &gt; target) right = mid; else if(nums[mid] == target) return mid; else left =mid+1; &#125; return left; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 367】Valid Perfect Square 有效的完全平方数]]></title>
+    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%20367%E3%80%91Valid%20Perfect%20Square%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0%20%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627/** * 给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。 * 说明：不要使用任何内置的库函数，如 sqrt。 * * 二分查找 * 一个数的平方根一定小于这个数的一半 */public class leetcode367 &#123; public static boolean isPerfectSquare (int num) &#123; if (num &lt; 1) return false; if (num == 1) return true; long left = 0; long right = num / 2; while (left &lt;= right) &#123; long mid = (left + right) / 2; if (mid * mid == num) return true; else if (mid * mid &lt; num) left = mid + 1; else right = mid - 1; &#125; return false; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -525,16 +536,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 26】Remove Duplicates from Sorted Array 删除排序数组中的重复项]]></title>
-    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2026%E3%80%91Remove%20Duplicates%20from%20Sorted%20Array%20%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 1234567891011121314151617/** * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。 * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 */public class leetcode26 &#123; public int removeDuplicates (int[] nums) &#123; int pos = 0; for (int i = 0; i &lt; nums.length; i++) &#123; if (nums[pos] != nums[i]) &#123; pos++; nums[pos] = nums[i]; &#125; &#125; return pos+1; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 19】Remove Nth Node From End of List 删除链表的倒数第N个节点]]></title>
+    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2019%E3%80%91Remove%20Nth%20Node%20From%20End%20of%20List%20%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425262728293031/** * * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 * 一趟扫描 * 两个指针，一个先走n步，然后两个指针同时走，第一个指针到末尾，第二个指针的位置就是倒数第n个节点 * */public class leetcode19 &#123; public ListNode removeNthFromEnd (ListNode head, int n) &#123; ListNode i = head, j = head; for (int k = 0; k &lt; n; k++) &#123; j = j.next; &#125; ListNode temp = i; while (j != null) &#123; j = j.next; temp = i; i = i.next; &#125; if (temp == i) &#123; head = head.next; return head; &#125; else &#123; temp.next = i.next; i.next = null; &#125; return head; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
       <tags>
         <tag>算法</tag>
         <tag>LeetCode</tag>
-        <tag>Easy</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -577,9 +588,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 367】Valid Perfect Square 有效的完全平方数]]></title>
-    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%20367%E3%80%91Valid%20Perfect%20Square%20%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0%20%2F</url>
-    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 123456789101112131415161718192021222324252627/** * 给定一个正整数 num，编写一个函数，如果 num 是一个完全平方数，则返回 True，否则返回 False。 * 说明：不要使用任何内置的库函数，如 sqrt。 * * 二分查找 * 一个数的平方根一定小于这个数的一半 */public class leetcode367 &#123; public static boolean isPerfectSquare (int num) &#123; if (num &lt; 1) return false; if (num == 1) return true; long left = 0; long right = num / 2; while (left &lt;= right) &#123; long mid = (left + right) / 2; if (mid * mid == num) return true; else if (mid * mid &lt; num) left = mid + 1; else right = mid - 1; &#125; return false; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 35】Search Insert Position 搜索插入位置]]></title>
+    <url>%2F2018%2F09%2F09%2F%E3%80%90LeetCode%2035%E3%80%91Search%20Insert%20Position%20%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[“The Linux philosophy is “Laugh in the face of danger”.Oops.Wrong One. “Do it yourself”. Yes, that”s it.”Linux的哲学就是“在危险面前放声大笑”，呵呵，不是这句，应该是“一切靠自己，自力更生”才对。 12345678910111213141516171819202122232425/** * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。 * 你可以假设数组中无重复元素。 * * 二分查找下界 */public class leetcode35 &#123; public int searchInsert (int[] nums, int target) &#123; return boundSearch(nums,0,nums.length,target); &#125; public int boundSearch (int[] nums, int left, int right, int target) &#123; while (left &lt; right) &#123; int mid = (left + right) / 2; if (nums[mid] &gt; target) right = mid; else if(nums[mid] == target) return mid; else left =mid+1; &#125; return left; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -749,19 +760,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 377】 Combination Sum IV 组合总和 IV]]></title>
-    <url>%2F2018%2F06%2F01%2F%5BLeetCode%20377%5DCombinatiion%20Sum%20IV%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%20IV%2F</url>
-    <content type="text"><![CDATA[[LeetCode 377]Combinatiion Sum IV 组合总和 IVProblem decription:Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target. Example:123456789101112131415nums = [1, 2, 3]target = 4The possible combination ways are:(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)Note that different sequences are counted as different combinations.Therefore the output is 7. Follow up:What if negative numbers are allowed in the given array?How does it change the problem?What limitation we need to add to the question to allow negative numbers? 题目描述：给定一个由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数。 示例:123456789101112131415nums = [1, 2, 3]target = 4所有可能的组合为：(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)请注意，顺序不同的序列被视作不同的组合。因此输出为 7。 进阶：如果给定的数组中含有负数会怎么样？问题会产生什么变化？我们需要在题目中添加什么限制来允许负数的出现？ Solution：使用动态规划和递归均可，创建一个dp数组，dp[i]表示和为i的正整数组合的个数，dp[0]=1,则从i=1到target遍历，对每一个i遍历数组中每个num，若i&gt;=num,则dp[i]+=dp[i-num],表示dp[3]=dp[2]+1 或 dp[1]+2 或 dp[0]+3,将所有情况累加就是dp[3]的结果,对原数组排序可对算法进行优化，当i&lt;num后面则不用判断直接break。(后面给出递归版本) Code(动态规划)：12345678910111213141516//beat 90%class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int []dp=new int[target+1]; dp[0]=1; Arrays.sort(nums); for(int i=1;i&lt;target+1;i++)&#123; for(int num:nums)&#123; if(i&lt;num) break; dp[i]+=dp[i-num]; &#125; &#125; return dp[target]; &#125;&#125; Code(递归)：1234567891011121314//超时 class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; return count; &#125;&#125; 123456789101112131415161718//AC beat 66.7%class Solution &#123; HashMap&lt;Integer,Integer&gt; map=new HashMap&lt;Integer,Integer&gt;(); public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; if(map.containsKey(target)) return map.get(target); for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; map.put(target,count); return count; &#125;&#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Medium</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[【LeetCode 394】 Decode String 字符串解码]]></title>
     <url>%2F2018%2F06%2F01%2F%5BLeetCode%20394%5DDecode%20String%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[[LeetCode 394]Decode String 字符串解码Problem decription:Given an encoded string, return it’s decoded string. The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer. You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc. Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won’t be input like 3a or 2[4]. Example:123s = &quot;3[a]2[bc]&quot;, return &quot;aaabcbc&quot;.s = &quot;3[a2[c]]&quot;, return &quot;accaccacc&quot;.s = &quot;2[abc]3[cd]ef&quot;, return &quot;abcabccdcdcdef&quot;. 题目描述：给定一个经过编码的字符串，返回它解码后的字符串。 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。 示例:s = &quot;3[a]2[bc]&quot;, 返回 &quot;aaabcbc&quot;. s = &quot;3[a2[c]]&quot;, 返回 &quot;accaccacc&quot;. s = &quot;2[abc]3[cd]ef&quot;, 返回 &quot;abcabccdcdcdef&quot;. Solution：首先想到的是递归，或者是用两个栈的非递归方法，非递归的效率更高一些。一个栈用来保存数字，一个用来保存字符串，以 b3[a]2[c]d] 为例,遍历整个字符串，用t保存当前字符串，count保存当前数字，碰到字母就添加到t中，碰到数字便循环读取并转换成正确的格式，当读取到‘[’时，将count入数字栈，将当前字符入字符栈，并将t清空，当读取到‘]’时，去数字栈顶元素k与字符栈顶元素s，t=s+k个t，直至栈为空结束，t即为所求。 Code：//beat 50% class Solution { public String decodeString(String s) { Stack&lt;Integer&gt; sNum=new Stack&lt;Integer&gt;(); Stack&lt;String&gt; sStr=new Stack&lt;String&gt;(); char[] chr=s.toCharArray(); String t=""; String count=""; for(int i=0;i&lt;chr.length;i++){ if(chr[i]&gt;='0' &amp;&amp; chr[i]&lt;='9'){ while(chr[i]!='['){ count+=chr[i++]; } sNum.push(Integer.parseInt(count)); count=""; } else if(chr[i]&lt;'0' || chr[i]&gt;'9' &amp;&amp;chr[i]!=']' &amp;&amp;chr[i]!='[') t+=chr[i]; if(chr[i]=='['){ sStr.push(t); t=""; } if(chr[i]==']'){ int k=1; if(!sNum.isEmpty()){ k=sNum.pop(); String top=sStr.pop(); for(int j=0;j&lt;k;j++) top+=t; t=top; } } } return t; } }]]></content>
@@ -775,29 +773,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 70】Climbing Stairs 爬楼梯]]></title>
-    <url>%2F2018%2F05%2F25%2F%5BLeetCode%2070%5DClimbing%20Stairs%20%E7%88%AC%E6%A5%BC%E6%A2%AF%2F</url>
-    <content type="text"><![CDATA[[LeetCode 70]Climbing Stairs 爬楼梯Problem description:You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: Given n will be a positive integer. Example:12345Input: 2Output: 2Explanation: There are two ways to climb to the top.1. 1 step + 1 step2. 2 steps 问题描述:假设你正在爬楼梯。需要 n 步你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 说明：给定 n 是一个正整数。 示例:12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1. 1 步 + 1 步2. 2 步 Solution:通过归纳可知符合斐波那契数列。 Code:12345678910111213141516171819class Solution &#123; public int climbStairs(int n) &#123; if(n==1) return 1; if(n==2) return 2; int f1=1; int f2=2; int sum=0; for(int i=2;i&lt;n;i++)&#123; sum=f1+f2; f1=f2; f2=sum; &#125; return sum; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 377】 Combination Sum IV 组合总和 IV]]></title>
+    <url>%2F2018%2F06%2F01%2F%5BLeetCode%20377%5DCombinatiion%20Sum%20IV%20%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%20IV%2F</url>
+    <content type="text"><![CDATA[[LeetCode 377]Combinatiion Sum IV 组合总和 IVProblem decription:Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target. Example:123456789101112131415nums = [1, 2, 3]target = 4The possible combination ways are:(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)Note that different sequences are counted as different combinations.Therefore the output is 7. Follow up:What if negative numbers are allowed in the given array?How does it change the problem?What limitation we need to add to the question to allow negative numbers? 题目描述：给定一个由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数。 示例:123456789101112131415nums = [1, 2, 3]target = 4所有可能的组合为：(1, 1, 1, 1)(1, 1, 2)(1, 2, 1)(1, 3)(2, 1, 1)(2, 2)(3, 1)请注意，顺序不同的序列被视作不同的组合。因此输出为 7。 进阶：如果给定的数组中含有负数会怎么样？问题会产生什么变化？我们需要在题目中添加什么限制来允许负数的出现？ Solution：使用动态规划和递归均可，创建一个dp数组，dp[i]表示和为i的正整数组合的个数，dp[0]=1,则从i=1到target遍历，对每一个i遍历数组中每个num，若i&gt;=num,则dp[i]+=dp[i-num],表示dp[3]=dp[2]+1 或 dp[1]+2 或 dp[0]+3,将所有情况累加就是dp[3]的结果,对原数组排序可对算法进行优化，当i&lt;num后面则不用判断直接break。(后面给出递归版本) Code(动态规划)：12345678910111213141516//beat 90%class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int []dp=new int[target+1]; dp[0]=1; Arrays.sort(nums); for(int i=1;i&lt;target+1;i++)&#123; for(int num:nums)&#123; if(i&lt;num) break; dp[i]+=dp[i-num]; &#125; &#125; return dp[target]; &#125;&#125; Code(递归)：1234567891011121314//超时 class Solution &#123; public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; return count; &#125;&#125; 123456789101112131415161718//AC beat 66.7%class Solution &#123; HashMap&lt;Integer,Integer&gt; map=new HashMap&lt;Integer,Integer&gt;(); public int combinationSum4(int[] nums, int target) &#123; int count=0; if(target==0) return 1; if(map.containsKey(target)) return map.get(target); for(int num:nums)&#123; if(target&gt;=num) count+=combinationSum4(nums,target-num); &#125; map.put(target,count); return count; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
       <tags>
         <tag>算法</tag>
         <tag>LeetCode</tag>
-        <tag>Easy</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[【LeetCode 363】Max Sum of Rectangle No Larger Than K]]></title>
-    <url>%2F2018%2F05%2F25%2F%5BLeetCode%20363%5D%20Max%20Sum%20of%20Rectangle%20No%20Larger%20Than%20K%20%2F</url>
-    <content type="text"><![CDATA[[LeetCode 363] Max Sum of Rectangle No Larger Than KProblem description:Given a non-empty 2D matrix matrix and an integer k, find the max sum of a rectangle in the matrix such that its sum is no larger than k. Note:The input is an array of integers. Only the least significant 8 bits of each integer is used to store the data. This means each integer represents only 1 byte of data. Example1:12345Given matrix = [ [1, 0, 1], [0, -2, 3]]k = 2 The answer is 2. Because the sum of rectangle [[0, 1], [-2, 3]] is 2 and 2 is the max number no larger than k (k = 2). Note: The rectangle inside the matrix must have an area &gt; 0. What if the number of rows is much larger than the number of columns? 问题描述:给定一个非空的二位矩阵和一个整数K，找到矩阵中子矩阵和最大并且不超过k的最大值。 示例1:12345给定矩阵 matrix = [ [1, 0, 1], [0, -2, 3]]k = 2 答案是2，因为矩形[[0, 1], [-2, 3]]和是2并且2 是不超过k（k=2）的最大值 。 Solution1: 这道题用纯暴力只能过95%左右，后面几个用例都会超时，所以在暴力的基础上稍微改进一下即可通过。（但不是最优解，复杂度为O(N2M2)） 用一个新矩阵保存计算值，每个值表示从点（0,0）到（i,j）的和，则计算（x1,y1）到（x2,y2）的值有以下四种情况： x1-1&lt;0 &amp;&amp; y1-1&lt;0: 说明（x1,y1）即为（0,0）点，直接返回存储矩阵中s[x2][y2]的值 x1-1&gt;=0 &amp;&amp; y1-1&lt;0: 说明y1=0， 1234561 2 3 4-------5 6 7 80 1 2 9-------计算从（1,0）到（3，3）的值 则返回s[x2][y2]-s[x1-1][y2] x1-1=0: 说明x1=0， 123451|2 3 4|5|6 7 8|0|1 2 9|计算从（0,1）到（3，3）的值 则返回s[x2][y2]-s[x2][y1-1] x1-1&gt;=0 &amp;&amp; y1-1&gt;=0: 123451 2 3 4 -------5|6 7 8|0|1 2 9| ------- 则返回s[x2][y2]-(s[x1-1][y2]+s[x2][y1-1]-s[x1-1][y1-1]) 遍历子矩阵用四层循环即可解决。 Code:12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667class Solution &#123; public int maxSumSubmatrix(int[][] matrix, int k) &#123; int max=0; int row=matrix.length; int col=matrix[0].length; int [][]store=new int[row][col]; for(int i=0;i&lt;row;i++)&#123; for(int j=0;j&lt;col;j++)&#123; store[i][j]=sum(matrix,0,0,i,j); &#125; &#125; boolean flag=true; for(int x=0;x&lt;row;x++)&#123; for(int y=0;y&lt;col;y++)&#123; for(int i=x;i&lt;row;i++)&#123; for(int j=y;j&lt;col;j++)&#123; int t=sSum(store,x,y,i,j); if(t==k) return t; if(flag &amp;&amp; t&lt;k)&#123; max=t; flag=false; &#125; if(t&lt;k)&#123; max=Math.max(t,max); &#125; &#125; &#125; &#125; &#125; return max; &#125; public int sSum(int [][]s,int x1,int y1,int x2,int y2 )&#123; if(x1-1&lt;0 &amp;&amp; y1-1&lt;0) return s[x2][y2]; if(x1-1&gt;=0 &amp;&amp; y1-1&lt;0) return s[x2][y2]-s[x1-1][y2]; if(x1-1&lt;0 &amp;&amp; y1-1&gt;=0) return s[x2][y2]-s[x2][y1-1]; else&#123; return s[x2][y2]-(s[x1-1][y2]+s[x2][y1-1]-s[x1-1][y1-1]); &#125; &#125; public int sum(int [][]matrix,int x1,int y1,int x2,int y2)&#123; int res=0; for(int i=x1;i&lt;=x2;i++)&#123; for(int j=y1;j&lt;=y2;j++)&#123; res+=matrix[i][j]; &#125; &#125; return res; &#125;&#125; Solution2:动态递归解法（学习后补充）首先使用动态规划解法，这道题目可以拆分成两道题。第一点是求矩阵子矩阵最大和的动态规划思想，参考视频链接。 具体思想就是，按列扫描累加每一列然后求最大值，这样就转换为一维数组子数组求最大和的问题，这是一个简单的动态规划，dp[i]=max(dp[i-1],array[i]); 第二点就是一维数组子数组最大和有可能大于给定的k，所以问题转换为求一维数组子数组和不大于k的最大值： 通过累加和可以求得任意区间的和，例如，cum数组为累加和数组，cum[i]表示从cum[0]到cum[i]的和，则区间（i,j）的和可表示为cum[j]-cum[i-1]; 这里还要借助TreeSet因为treeset中ceiling方法可以求出大于或等于给定的元素的最小元素，也就是说我们在累加过程中去比较max和set.ceiling(sum-k)的大小即可，由于treeset查询这一步时间复杂度是O(logn),所以总的时间复杂度是O(N2*M*log(M)),如果列数远远大于行数，可以按照行扫描。 Code:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class Solution &#123; public int maxSumSubmatrix(int[][] matrix, int k) &#123; int rowSize=matrix.length; int colSize=matrix[0].length; int maxSum=Integer.MIN_VALUE; int currentSum=0; // int maxLeft=0; // int maxRight=0; // int maxUp=0; // int maxDown=0; int []rowArray=new int[rowSize]; for(int left=0;left&lt;colSize;left++)&#123; for(int right=left;right&lt;colSize;right++)&#123; for(int i=0;i&lt;rowSize;i++)&#123; rowArray[i]+=matrix[i][right]; &#125; currentSum=maxSubArray(rowArray,k); if(currentSum==k) return k; if(currentSum&lt;k) maxSum=Math.max(currentSum,maxSum); &#125; for(int i=0;i&lt;rowSize;i++)&#123; rowArray[i]=0; &#125; &#125; return maxSum; &#125; public int maxSubArray(int []a,int k)&#123; TreeSet&lt;Integer&gt; set=new TreeSet&lt;Integer&gt;(); int sum=0; int max=Integer.MIN_VALUE; set.add(0); for(int i=0;i&lt;a.length;i++)&#123; sum+=a[i]; Integer v=set.ceiling(sum-k);//返回大于或等于给定的元素的最小元素，或null if(v!=null)&#123; max=Math.max(sum-v,max); &#125; set.add(sum); &#125; return max; &#125; &#125;]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>LeetCode</tag>
-        <tag>Hard</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -814,16 +799,29 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[【LeetCode 48】Rotate Image 旋转图像]]></title>
-    <url>%2F2018%2F05%2F24%2F%5BLeetCode%2048%5DRotate%20Image%20%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F%2F</url>
-    <content type="text"><![CDATA[[LeetCode 48]Rotate Image 旋转图像Problem description:You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees (clockwise). Note:You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation. Example 1:12345678910111213Given input matrix =[ [1,2,3], [4,5,6], [7,8,9]],rotate the input matrix in-place such that it becomes:[ [7,4,1], [8,5,2], [9,6,3]] Example 2:123456789101112131415Given input matrix =[ [ 5, 1, 9,11], [ 2, 4, 8,10], [13, 3, 6, 7], [15,14,12,16]],rotate the input matrix in-place such that it becomes:[ [15,13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7,10,11]] 问题描述:给定一个 n × n 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度。 说明:你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。 示例1:12345678910111213给定 matrix =[ [1,2,3], [4,5,6], [7,8,9]],原地旋转输入矩阵，使其变为:[ [7,4,1], [8,5,2], [9,6,3]] 示例2:123456789101112131415给定 matrix =[ [ 5, 1, 9,11], [ 2, 4, 8,10], [13, 3, 6, 7], [15,14,12,16]],原地旋转输入矩阵，使其变为:[ [15,13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7,10,11]] Solution:将矩阵沿着主对角线翻转一次，再沿着对称线旋转一次即可。 Code:123456789101112131415161718192021222324252627class Solution &#123; public void rotate(int[][] matrix) &#123; int n=matrix[0].length; int num=1; //沿着主对角线翻转 for(int i=0;i&lt;n;i++)&#123; for(int j=0;j&lt;num;j++)&#123; int temp=matrix[i][j]; matrix[i][j]=matrix[j][i]; matrix[j][i]=temp; &#125; num++; &#125; //沿着对称轴线翻转 for(int i=0;i&lt;n;i++)&#123; for(int j=0;j&lt;n/2;j++)&#123; int temp=matrix[i][j]; matrix[i][j]=matrix[i][n-j-1]; matrix[i][n-j-1]=temp; &#125; &#125; &#125;&#125;]]></content>
+    <title><![CDATA[【LeetCode 363】Max Sum of Rectangle No Larger Than K]]></title>
+    <url>%2F2018%2F05%2F25%2F%5BLeetCode%20363%5D%20Max%20Sum%20of%20Rectangle%20No%20Larger%20Than%20K%20%2F</url>
+    <content type="text"><![CDATA[[LeetCode 363] Max Sum of Rectangle No Larger Than KProblem description:Given a non-empty 2D matrix matrix and an integer k, find the max sum of a rectangle in the matrix such that its sum is no larger than k. Note:The input is an array of integers. Only the least significant 8 bits of each integer is used to store the data. This means each integer represents only 1 byte of data. Example1:12345Given matrix = [ [1, 0, 1], [0, -2, 3]]k = 2 The answer is 2. Because the sum of rectangle [[0, 1], [-2, 3]] is 2 and 2 is the max number no larger than k (k = 2). Note: The rectangle inside the matrix must have an area &gt; 0. What if the number of rows is much larger than the number of columns? 问题描述:给定一个非空的二位矩阵和一个整数K，找到矩阵中子矩阵和最大并且不超过k的最大值。 示例1:12345给定矩阵 matrix = [ [1, 0, 1], [0, -2, 3]]k = 2 答案是2，因为矩形[[0, 1], [-2, 3]]和是2并且2 是不超过k（k=2）的最大值 。 Solution1: 这道题用纯暴力只能过95%左右，后面几个用例都会超时，所以在暴力的基础上稍微改进一下即可通过。（但不是最优解，复杂度为O(N2M2)） 用一个新矩阵保存计算值，每个值表示从点（0,0）到（i,j）的和，则计算（x1,y1）到（x2,y2）的值有以下四种情况： x1-1&lt;0 &amp;&amp; y1-1&lt;0: 说明（x1,y1）即为（0,0）点，直接返回存储矩阵中s[x2][y2]的值 x1-1&gt;=0 &amp;&amp; y1-1&lt;0: 说明y1=0， 1234561 2 3 4-------5 6 7 80 1 2 9-------计算从（1,0）到（3，3）的值 则返回s[x2][y2]-s[x1-1][y2] x1-1=0: 说明x1=0， 123451|2 3 4|5|6 7 8|0|1 2 9|计算从（0,1）到（3，3）的值 则返回s[x2][y2]-s[x2][y1-1] x1-1&gt;=0 &amp;&amp; y1-1&gt;=0: 123451 2 3 4 -------5|6 7 8|0|1 2 9| ------- 则返回s[x2][y2]-(s[x1-1][y2]+s[x2][y1-1]-s[x1-1][y1-1]) 遍历子矩阵用四层循环即可解决。 Code:12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667class Solution &#123; public int maxSumSubmatrix(int[][] matrix, int k) &#123; int max=0; int row=matrix.length; int col=matrix[0].length; int [][]store=new int[row][col]; for(int i=0;i&lt;row;i++)&#123; for(int j=0;j&lt;col;j++)&#123; store[i][j]=sum(matrix,0,0,i,j); &#125; &#125; boolean flag=true; for(int x=0;x&lt;row;x++)&#123; for(int y=0;y&lt;col;y++)&#123; for(int i=x;i&lt;row;i++)&#123; for(int j=y;j&lt;col;j++)&#123; int t=sSum(store,x,y,i,j); if(t==k) return t; if(flag &amp;&amp; t&lt;k)&#123; max=t; flag=false; &#125; if(t&lt;k)&#123; max=Math.max(t,max); &#125; &#125; &#125; &#125; &#125; return max; &#125; public int sSum(int [][]s,int x1,int y1,int x2,int y2 )&#123; if(x1-1&lt;0 &amp;&amp; y1-1&lt;0) return s[x2][y2]; if(x1-1&gt;=0 &amp;&amp; y1-1&lt;0) return s[x2][y2]-s[x1-1][y2]; if(x1-1&lt;0 &amp;&amp; y1-1&gt;=0) return s[x2][y2]-s[x2][y1-1]; else&#123; return s[x2][y2]-(s[x1-1][y2]+s[x2][y1-1]-s[x1-1][y1-1]); &#125; &#125; public int sum(int [][]matrix,int x1,int y1,int x2,int y2)&#123; int res=0; for(int i=x1;i&lt;=x2;i++)&#123; for(int j=y1;j&lt;=y2;j++)&#123; res+=matrix[i][j]; &#125; &#125; return res; &#125;&#125; Solution2:动态递归解法（学习后补充）首先使用动态规划解法，这道题目可以拆分成两道题。第一点是求矩阵子矩阵最大和的动态规划思想，参考视频链接。 具体思想就是，按列扫描累加每一列然后求最大值，这样就转换为一维数组子数组求最大和的问题，这是一个简单的动态规划，dp[i]=max(dp[i-1],array[i]); 第二点就是一维数组子数组最大和有可能大于给定的k，所以问题转换为求一维数组子数组和不大于k的最大值： 通过累加和可以求得任意区间的和，例如，cum数组为累加和数组，cum[i]表示从cum[0]到cum[i]的和，则区间（i,j）的和可表示为cum[j]-cum[i-1]; 这里还要借助TreeSet因为treeset中ceiling方法可以求出大于或等于给定的元素的最小元素，也就是说我们在累加过程中去比较max和set.ceiling(sum-k)的大小即可，由于treeset查询这一步时间复杂度是O(logn),所以总的时间复杂度是O(N2*M*log(M)),如果列数远远大于行数，可以按照行扫描。 Code:1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class Solution &#123; public int maxSumSubmatrix(int[][] matrix, int k) &#123; int rowSize=matrix.length; int colSize=matrix[0].length; int maxSum=Integer.MIN_VALUE; int currentSum=0; // int maxLeft=0; // int maxRight=0; // int maxUp=0; // int maxDown=0; int []rowArray=new int[rowSize]; for(int left=0;left&lt;colSize;left++)&#123; for(int right=left;right&lt;colSize;right++)&#123; for(int i=0;i&lt;rowSize;i++)&#123; rowArray[i]+=matrix[i][right]; &#125; currentSum=maxSubArray(rowArray,k); if(currentSum==k) return k; if(currentSum&lt;k) maxSum=Math.max(currentSum,maxSum); &#125; for(int i=0;i&lt;rowSize;i++)&#123; rowArray[i]=0; &#125; &#125; return maxSum; &#125; public int maxSubArray(int []a,int k)&#123; TreeSet&lt;Integer&gt; set=new TreeSet&lt;Integer&gt;(); int sum=0; int max=Integer.MIN_VALUE; set.add(0); for(int i=0;i&lt;a.length;i++)&#123; sum+=a[i]; Integer v=set.ceiling(sum-k);//返回大于或等于给定的元素的最小元素，或null if(v!=null)&#123; max=Math.max(sum-v,max); &#125; set.add(sum); &#125; return max; &#125; &#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
       <tags>
         <tag>算法</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
+        <tag>Hard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【LeetCode 70】Climbing Stairs 爬楼梯]]></title>
+    <url>%2F2018%2F05%2F25%2F%5BLeetCode%2070%5DClimbing%20Stairs%20%E7%88%AC%E6%A5%BC%E6%A2%AF%2F</url>
+    <content type="text"><![CDATA[[LeetCode 70]Climbing Stairs 爬楼梯Problem description:You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top? Note: Given n will be a positive integer. Example:12345Input: 2Output: 2Explanation: There are two ways to climb to the top.1. 1 step + 1 step2. 2 steps 问题描述:假设你正在爬楼梯。需要 n 步你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 说明：给定 n 是一个正整数。 示例:12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1. 1 步 + 1 步2. 2 步 Solution:通过归纳可知符合斐波那契数列。 Code:12345678910111213141516171819class Solution &#123; public int climbStairs(int n) &#123; if(n==1) return 1; if(n==2) return 2; int f1=1; int f2=2; int sum=0; for(int i=2;i&lt;n;i++)&#123; sum=f1+f2; f1=f2; f2=sum; &#125; return sum; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -837,6 +835,19 @@
         <tag>算法</tag>
         <tag>LeetCode</tag>
         <tag>Easy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【LeetCode 48】Rotate Image 旋转图像]]></title>
+    <url>%2F2018%2F05%2F24%2F%5BLeetCode%2048%5DRotate%20Image%20%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F%2F</url>
+    <content type="text"><![CDATA[[LeetCode 48]Rotate Image 旋转图像Problem description:You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees (clockwise). Note:You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation. Example 1:12345678910111213Given input matrix =[ [1,2,3], [4,5,6], [7,8,9]],rotate the input matrix in-place such that it becomes:[ [7,4,1], [8,5,2], [9,6,3]] Example 2:123456789101112131415Given input matrix =[ [ 5, 1, 9,11], [ 2, 4, 8,10], [13, 3, 6, 7], [15,14,12,16]],rotate the input matrix in-place such that it becomes:[ [15,13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7,10,11]] 问题描述:给定一个 n × n 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度。 说明:你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。 示例1:12345678910111213给定 matrix =[ [1,2,3], [4,5,6], [7,8,9]],原地旋转输入矩阵，使其变为:[ [7,4,1], [8,5,2], [9,6,3]] 示例2:123456789101112131415给定 matrix =[ [ 5, 1, 9,11], [ 2, 4, 8,10], [13, 3, 6, 7], [15,14,12,16]],原地旋转输入矩阵，使其变为:[ [15,13, 2, 5], [14, 3, 4, 1], [12, 6, 8, 9], [16, 7,10,11]] Solution:将矩阵沿着主对角线翻转一次，再沿着对称线旋转一次即可。 Code:123456789101112131415161718192021222324252627class Solution &#123; public void rotate(int[][] matrix) &#123; int n=matrix[0].length; int num=1; //沿着主对角线翻转 for(int i=0;i&lt;n;i++)&#123; for(int j=0;j&lt;num;j++)&#123; int temp=matrix[i][j]; matrix[i][j]=matrix[j][i]; matrix[j][i]=temp; &#125; num++; &#125; //沿着对称轴线翻转 for(int i=0;i&lt;n;i++)&#123; for(int j=0;j&lt;n/2;j++)&#123; int temp=matrix[i][j]; matrix[i][j]=matrix[i][n-j-1]; matrix[i][n-j-1]=temp; &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>LeetCode</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
